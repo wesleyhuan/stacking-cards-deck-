@@ -1,11 +1,15 @@
 /**
  * Universal Stacking Cards Engine
- * Automatically detects whether page is Google Pixel 11 Pro (pixel11.html) or Cathay Bank (index.html)
+ * Automatically detects whether page is NEXUS Agency (agency.html), Google Pixel 11 Pro (pixel11.html), or Cathay Bank (index.html)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const isAgencyPage = window.location.pathname.includes('agency.html');
   const isPixelPage = window.location.pathname.includes('pixel11.html');
-  const cardsData = isPixelPage ? window.pixelCardsData : window.cathayCardsData;
+  
+  const cardsData = isAgencyPage 
+    ? window.agencyCardsData 
+    : (isPixelPage ? window.pixelCardsData : window.cathayCardsData);
 
   const cardsWrapper = document.getElementById('cards-stack-wrapper');
   const activeCounter = document.getElementById('active-card-counter');
@@ -21,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundIcon = document.getElementById('sound-icon');
   const resetStackBtn = document.getElementById('reset-stack-btn');
 
-  // Pre-order / Apply buttons
+  // Pre-order / Apply / Consultation buttons
   const preorderNavBtn = document.getElementById('preorder-nav-btn');
   const heroPreorderBtn = document.getElementById('hero-preorder-btn');
   const footerPreorderBtn = document.getElementById('footer-preorder-btn');
@@ -59,107 +63,129 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Render cards dynamically when filter changes
   function renderCards(filter = 'all') {
-    cardsWrapper.innerHTML = '';
-    const filteredData = cardsData.filter(card => filter === 'all' || card.category === filter);
+    if (!cardsWrapper) return;
+
+    activeFilter = filter;
+    const filteredData = filter === 'all'
+      ? cardsData
+      : cardsData.filter(item => item.category === filter);
 
     if (filteredData.length === 0) {
       cardsWrapper.innerHTML = `
-        <div class="text-center py-16 text-slate-400">
-          <i data-lucide="${isPixelPage ? 'smartphone' : 'credit-card'}" class="w-10 h-10 mx-auto mb-2 text-slate-600"></i>
-          <p class="text-sm">${isPixelPage ? 'No features in this category.' : '此分類暫無卡片。'}</p>
+        <div class="py-16 text-center text-slate-400 font-mono">
+          <i data-lucide="folder-open" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
+          <p>No items found for category: "${filter}"</p>
         </div>
       `;
       if (window.lucide) lucide.createIcons();
+      updateCounterText();
       return;
     }
 
-    filteredData.forEach((card, index) => {
-      const cardEl = document.createElement('div');
-      cardEl.className = 'portfolio-card-item w-full';
-      cardEl.style.setProperty('--card-index', index);
-      cardEl.dataset.id = card.id;
+    cardsWrapper.innerHTML = filteredData.map((item, index) => {
+      const isCustomBg = isPixelPage || isAgencyPage;
+      const badgeClasses = isCustomBg
+        ? item.badgeColor
+        : (index % 2 === 0
+          ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
+          : 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20');
 
-      cardEl.innerHTML = `
-        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
-          <div class="flex-1 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="card-number-badge"># ${card.number}</span>
-                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${card.badgeColor}">
-                    ${card.badge}
+      const btnGradient = isAgencyPage
+        ? 'from-purple-500 via-indigo-500 to-pink-500'
+        : (isPixelPage
+          ? 'from-amber-400 via-orange-500 to-rose-500'
+          : 'from-emerald-400 via-teal-500 to-cyan-500');
+
+      return `
+        <div class="portfolio-card-item w-full" style="--card-index: ${index};" data-id="${item.id}">
+          <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+            
+            <div class="flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="card-number-badge"># ${item.number}</span>
+                    <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${badgeClasses}">
+                      ${item.badge}
+                    </span>
+                  </div>
+                  <span class="text-xs font-mono text-slate-500">
+                    ${isAgencyPage ? 'NEXUS STUDIO' : (isPixelPage ? 'PIXEL 11 DEMO' : '國泰世華信用卡')}
                   </span>
                 </div>
-                <span class="text-xs font-mono text-slate-500">${isPixelPage ? 'PIXEL 11 PRO' : 'CATHAY BANK'}</span>
-              </div>
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-amber-300 transition-colors cursor-pointer card-title-click">
-                ${card.title}
-              </h2>
-              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
-                ${card.description}
-              </p>
-            </div>
 
-            <div>
-              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
-                ${card.metrics.map(m => `
-                  <div class="flex flex-col">
-                    <span class="text-[10px] text-slate-400 font-mono">${m.label}</span>
-                    <span class="text-sm sm:text-base font-bold text-white font-mono">${m.value}</span>
-                  </div>
-                `).join('')}
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-purple-300 transition-colors cursor-pointer card-title-click">
+                  ${item.title}
+                </h2>
+                
+                <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                  ${item.description}
+                </p>
               </div>
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-                <div class="flex flex-wrap gap-1.5">
-                  ${card.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
+
+              <div>
+                <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                  ${item.metrics.map(m => `
+                    <div class="flex flex-col">
+                      <span class="text-[10px] text-slate-400 font-mono">${m.label}</span>
+                      <span class="text-sm sm:text-base font-bold text-white font-mono">${m.value}</span>
+                    </div>
+                  `).join('')}
                 </div>
-                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r ${card.color} px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
-                  <span>${isPixelPage ? 'Explore Specs' : '查看詳細權益'}</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
 
-          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
-            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
-              <img src="${card.image}" alt="${card.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
-                <span class="text-amber-400 font-bold">${card.badge}</span>
-                <span>${isPixelPage ? 'PIXEL 11 PRO' : '國泰世華'}</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                  <div class="flex flex-wrap gap-1.5">
+                    ${item.tags.map(t => `<span class="skill-tag">${t}</span>`).join('')}
+                  </div>
+
+                  <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r ${btnGradient} px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                    <span>${isAgencyPage ? 'View Case Breakdown' : (isPixelPage ? 'Explore Specs' : '查看卡片權益')}</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-amber-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('${card.id}')">
-              <img src="${card.promoImage}" alt="${card.promoBadge}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
-              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
-                <span class="flex items-center gap-1 bg-amber-500/90 text-slate-950 px-2 py-0.5 rounded">
-                  <i data-lucide="sparkles" class="w-3 h-3"></i>
-                  ${card.promoBadge}
-                </span>
-                <span class="text-amber-300 underline">${isPixelPage ? 'Tap to View' : '點擊查看詳情'}</span>
+
+            <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+              <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                  <span class="text-purple-400 font-bold">${item.badge}</span>
+                  <span>${isAgencyPage ? 'CASE STUDY' : (isPixelPage ? 'PIXEL 11 PRO' : '國泰世華')}</span>
+                </div>
               </div>
+
+              ${item.promoImage ? `
+                <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-purple-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('${item.id}')">
+                  <img src="${item.promoImage}" alt="${item.promoBadge || 'FEATURE'}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                  <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+                  <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                    <span class="flex items-center gap-1 bg-purple-500/90 text-white px-2 py-0.5 rounded">
+                      <i data-lucide="sparkles" class="w-3 h-3"></i>
+                      ${item.promoBadge || 'SPECIAL HIGHLIGHT'}
+                    </span>
+                    <span class="text-purple-300 underline">Tap to View</span>
+                  </div>
+                </div>
+              ` : ''}
             </div>
+
           </div>
         </div>
       `;
-
-      cardsWrapper.appendChild(cardEl);
-    });
+    }).join('');
 
     if (window.lucide) lucide.createIcons();
     bindCardEvents();
   }
 
-  window.openCardModalByDataId = function(cardId) {
-    const card = cardsData.find(c => c.id === cardId);
-    if (card) openCardModal(card);
-  };
-
-  // Update Scroll Physics
+  // 60fps Scroll Physics Engine
   function updateStackPhysics() {
-    if (activeMode !== 'stack' || cards.length === 0) return;
+    if (activeMode !== 'stack') return;
+
+    cards = Array.from(document.querySelectorAll('.portfolio-card-item'));
+    if (cards.length === 0) return;
 
     const topOffset = 110;
     const gapStep = 28;
@@ -192,164 +218,169 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    updateActiveCardCounter();
+    updateScrollProgress();
   }
 
-  // Update Active Card Counter
-  function updateActiveCardCounter() {
-    if (cards.length === 0 || !activeCounter) return;
-    let activeIdx = 0;
-    const topOffset = 150;
+  // Update top scroll progress bar
+  function updateScrollProgress() {
+    if (!progressBar) return;
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
 
-    cards.forEach((card, index) => {
+  // Update active counter text
+  function updateCounterText() {
+    if (!activeCounter) return;
+    const total = cards.length;
+    if (total === 0) {
+      activeCounter.textContent = '0 Cards';
+      return;
+    }
+
+    const topOffset = 150;
+    let activeIdx = 0;
+
+    cards.forEach((card, idx) => {
       const rect = card.getBoundingClientRect();
-      if (rect.top <= topOffset + 50) {
-        activeIdx = index;
+      if (rect.top <= topOffset) {
+        activeIdx = idx;
       }
     });
 
-    activeCounter.textContent = `${isPixelPage ? 'Feature' : '卡片'} ${activeIdx + 1} / ${cards.length}`;
+    const label = isAgencyPage ? 'Case' : (isPixelPage ? 'Feature' : 'Card');
+    activeCounter.textContent = `${label} ${activeIdx + 1} / ${total}`;
   }
 
-  function updateCounterText() {
-    if (activeCounter) activeCounter.textContent = `${isPixelPage ? 'Feature' : '卡片'} 1 / ${cards.length}`;
-  }
-
-  // Scroll Progress Bar Update
-  function updateProgressBar() {
-    if (!progressBar) return;
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = Math.max(0, Math.min(100, (scrollTop / docHeight) * 100));
-    progressBar.style.width = `${progress}%`;
-  }
-
-  // Throttled Scroll Listener
+  // Passive throttled scroll listener
   window.addEventListener('scroll', () => {
     if (!isTicking) {
       window.requestAnimationFrame(() => {
         updateStackPhysics();
-        updateProgressBar();
+        updateCounterText();
         isTicking = false;
       });
       isTicking = true;
     }
   }, { passive: true });
 
-  window.addEventListener('resize', updateStackPhysics);
-
-  // Category Filters Event Handler
-  if (categoryFilters) {
-    categoryFilters.addEventListener('click', (e) => {
-      const btn = e.target.closest('.filter-btn');
-      if (!btn) return;
-
-      const activeColorClass = isPixelPage ? 'bg-amber-500' : 'bg-emerald-500';
-
-      categoryFilters.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.remove('active', 'bg-amber-500', 'bg-emerald-500', 'text-slate-950', 'shadow-md');
-        b.classList.add('text-slate-400');
-      });
-
-      btn.classList.add('active', activeColorClass, 'text-slate-950', 'shadow-md');
-      btn.classList.remove('text-slate-400');
-
-      activeFilter = btn.dataset.filter;
-      if (window.soundEngine) window.soundEngine.playCardStackSound(500, 0.05);
-
-      renderCards(activeFilter);
-    });
-  }
-
-  // View Mode Switcher (Stack vs Grid)
+  // View Mode Switcher
   if (viewModeSelector) {
     viewModeSelector.addEventListener('click', (e) => {
       const btn = e.target.closest('.view-mode-btn');
       if (!btn) return;
 
-      const activeClass = isPixelPage ? 'bg-amber-500/20' : 'bg-emerald-500/20';
+      const mode = btn.dataset.mode;
+      if (mode === activeMode) return;
 
+      activeMode = mode;
       viewModeSelector.querySelectorAll('.view-mode-btn').forEach(b => {
-        b.classList.remove('active', 'bg-amber-500/20', 'bg-emerald-500/20', 'border', 'border-amber-400/40', 'border-emerald-400/40', 'text-slate-200');
+        b.classList.remove('active', 'bg-emerald-500/20', 'bg-amber-500/20', 'bg-purple-500/20', 'border', 'border-emerald-400/40', 'border-amber-400/40', 'border-purple-400/40', 'text-slate-200');
         b.classList.add('text-slate-400');
       });
 
-      btn.classList.add('active', activeClass, 'border', 'text-slate-200');
+      const activeColor = isAgencyPage ? 'purple' : (isPixelPage ? 'amber' : 'emerald');
+      btn.classList.add('active', `bg-${activeColor}-500/20`, 'border', `border-${activeColor}-400/40`, 'text-slate-200');
       btn.classList.remove('text-slate-400');
 
-      activeMode = btn.dataset.mode;
-      if (window.soundEngine) window.soundEngine.playCardStackSound(600, 0.05);
-
+      if (!cardsWrapper) return;
       if (activeMode === 'grid') {
         cardsWrapper.classList.remove('stack-mode');
         cardsWrapper.classList.add('grid-mode');
-        cards.forEach(c => {
-          c.style.transform = 'none';
-          c.style.opacity = '1';
-          c.style.filter = 'none';
+        cards.forEach(card => {
+          card.style.transform = 'none';
+          card.style.opacity = '1';
+          card.style.filter = 'none';
         });
       } else {
         cardsWrapper.classList.remove('grid-mode');
         cardsWrapper.classList.add('stack-mode');
         updateStackPhysics();
       }
+
+      if (window.soundEngine) window.soundEngine.playClickSound();
     });
   }
 
-  // Open Card Modal
+  // Category Filters
+  if (categoryFilters) {
+    categoryFilters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+
+      const filter = btn.dataset.filter;
+      if (filter === activeFilter) return;
+
+      categoryFilters.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-emerald-500', 'bg-amber-500', 'bg-purple-500', 'text-slate-950', 'text-white', 'shadow-md');
+        b.classList.add('text-slate-400');
+      });
+
+      const activeBg = isAgencyPage ? 'bg-purple-500 text-white' : (isPixelPage ? 'bg-amber-500 text-slate-950' : 'bg-emerald-500 text-slate-950');
+      btn.classList.add('active', ...activeBg.split(' '), 'shadow-md');
+      btn.classList.remove('text-slate-400');
+
+      renderCards(filter);
+      if (window.soundEngine) window.soundEngine.playCardSlideSound();
+    });
+  }
+
+  // Reset Stack Button
+  if (resetStackBtn) {
+    resetStackBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.soundEngine) window.soundEngine.playClickSound();
+    });
+  }
+
+  // Open Modal by Card Object
   function openCardModal(card) {
-    if (!modal || !modalBody) return;
-    if (window.soundEngine) window.soundEngine.playModalOpen();
+    if (!modal || !modalBody || !modalBox) return;
+
+    const accentColor = isAgencyPage ? 'purple' : (isPixelPage ? 'amber' : 'emerald');
 
     modalBody.innerHTML = `
-      <div class="space-y-5">
-        <div class="flex items-center justify-between pb-3 border-b border-white/10">
-          <div>
-            <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${card.badgeColor} mb-1 inline-block">
-              ${card.badge}
-            </span>
-            <h2 class="text-2xl font-bold text-white tracking-tight">${card.title}</h2>
-          </div>
-          <span class="card-number-badge text-base"># ${card.number}</span>
+      <div class="space-y-6">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+          <span class="text-xs font-mono px-3 py-1 rounded-full ${card.badgeColor}">
+            ${card.badge}
+          </span>
+          <span class="text-xs font-mono text-slate-400"># ${card.number}</span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="rounded-xl overflow-hidden border border-white/15 h-44">
-            <img src="${card.image}" alt="${card.title}" class="w-full h-full object-cover" />
-          </div>
-          <div class="rounded-xl overflow-hidden border border-amber-400/30 h-44 relative">
-            <img src="${card.promoImage}" alt="${card.promoBadge}" class="w-full h-full object-cover" />
-            <div class="absolute bottom-2 left-2 bg-amber-500 text-slate-950 font-bold font-mono text-[9px] px-2 py-0.5 rounded">
-              ${card.promoBadge}
-            </div>
-          </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${card.title}</h2>
+        <p class="text-sm font-medium text-${accentColor}-300">${card.subtitle || ''}</p>
+
+        <div class="relative w-full h-56 rounded-2xl overflow-hidden border border-white/15 shadow-xl">
+          <img src="${card.image}" alt="${card.title}" class="w-full h-full object-cover" />
         </div>
 
-        <div>
-          <h3 class="text-sm font-bold text-amber-300 mb-1">${card.deepDive.headline}</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">${card.deepDive.details}</p>
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/10">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-${accentColor}-400"></i>
+            <span>${card.deepDive ? card.deepDive.headline : 'Overview'}</span>
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            ${card.deepDive ? card.deepDive.details : card.description}
+          </p>
+
+          ${card.deepDive && card.deepDive.specs ? `
+            <ul class="space-y-2 text-xs text-slate-300">
+              ${card.deepDive.specs.map(spec => `
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-${accentColor}-400 shrink-0 mt-0.5"></i>
+                  <span>${spec}</span>
+                </li>
+              `).join('')}
+            </ul>
+          ` : ''}
         </div>
 
-        <div>
-          <h4 class="text-[10px] font-mono text-cyan-400 uppercase font-bold tracking-wider mb-2">
-            ${isPixelPage ? 'DETAILED TECHNICAL SPECIFICATIONS' : '卡片核心權益與優惠說明'}
-          </h4>
-          <ul class="space-y-1.5">
-            ${card.deepDive.specs.map(spec => `
-              <li class="flex items-start gap-2 text-xs text-slate-300">
-                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
-                <span>${spec}</span>
-              </li>
-            `).join('')}
-          </ul>
-        </div>
-
-        <div class="flex items-center justify-between pt-3 border-t border-white/10">
-          <button id="modal-close-btn-inner" class="px-5 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors">
-            ${isPixelPage ? 'Close' : '關閉'}
-          </button>
-          <button onclick="openPreorderModal()" class="px-5 py-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-extrabold text-xs shadow-md hover:brightness-110 transition-all">
-            ${isPixelPage ? 'Pre-order Pixel 11 Pro' : '立即申辦卡片'}
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="openPreorderModal()" class="w-full py-3.5 rounded-full bg-gradient-to-r from-${accentColor}-400 to-${accentColor}-600 text-slate-950 font-extrabold text-xs shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+            <span>${isAgencyPage ? 'Start a Project Consultation' : (isPixelPage ? 'Reserve Demo Unit' : '立即線上申辦')}</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
         </div>
       </div>
@@ -361,85 +392,112 @@ document.addEventListener('DOMContentLoaded', () => {
     modalBox.classList.remove('scale-95');
     modalBox.classList.add('scale-100');
     document.body.classList.add('modal-open');
-
-    const innerCloseBtn = document.getElementById('modal-close-btn-inner');
-    if (innerCloseBtn) innerCloseBtn.addEventListener('click', closeModal);
+    if (window.soundEngine) window.soundEngine.playCardSlideSound();
   }
 
-  // Pre-order / Application Modal
-  window.openPreorderModal = function() {
-    if (!modal || !modalBody) return;
-    if (window.soundEngine) window.soundEngine.playModalOpen();
+  window.openCardModalByDataId = function(id) {
+    const card = cardsData.find(c => c.id === id);
+    if (card) openCardModal(card);
+  };
 
-    if (isPixelPage) {
+  // Pre-order / Apply / Consultation Form Modal
+  window.openPreorderModal = function() {
+    if (!modal || !modalBody || !modalBox) return;
+
+    if (isAgencyPage) {
       modalBody.innerHTML = `
         <div class="space-y-5">
-          <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <div>
-              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-amber-500/10 text-amber-300 border-amber-500/20 mb-1 inline-block">
-                GOOGLE STORE OFFICIAL PROMOTION
-              </span>
-              <h2 class="text-2xl font-bold text-white tracking-tight">Pre-order Google Pixel 11 Pro</h2>
+              <span class="text-[10px] font-mono text-purple-400 uppercase tracking-widest">NEXUS CREATIVE STUDIO</span>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Project Consultation</h2>
             </div>
-            <span class="text-amber-400 font-mono font-bold">FROM $1,099</span>
+            <span class="text-purple-400 font-mono font-bold text-xs">Awwwards Agency 2026</span>
           </div>
 
-          <div>
-            <label class="block text-xs font-mono text-slate-400 mb-1.5">1. CHOOSE FLAGSHIP MODEL</label>
+          <form id="agency-contact-form" class="space-y-3" onsubmit="confirmOrder(event)">
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1">Project Discipline</label>
+              <select class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs font-bold focus:outline-none focus:border-purple-500">
+                <option>Spatial UI/UX Operating System</option>
+                <option>3D Motion & Realtime AR Cockpit</option>
+                <option>Web3 FinTech & Neo-Banking App</option>
+                <option>Spatial E-Commerce & 3D WebGL Fitting</option>
+                <option>Enterprise SaaS Observability Platform</option>
+              </select>
+            </div>
+
             <div class="grid grid-cols-2 gap-3">
-              <button class="p-3 rounded-xl bg-slate-800 border-2 border-amber-400 text-left">
-                <div class="text-xs font-bold text-white">Pixel 11 Pro (6.8")</div>
-                <div class="text-[10px] text-slate-400">$1,099 or $45.79/mo</div>
-              </button>
-              <button class="p-3 rounded-xl bg-slate-900 border border-white/10 text-left hover:border-white/20">
-                <div class="text-xs font-bold text-white">Pixel 11 Pro Max (6.9")</div>
-                <div class="text-[10px] text-slate-400">$1,199 or $49.95/mo</div>
-              </button>
+              <div>
+                <label class="block text-xs font-mono text-slate-400 mb-1">Your Name</label>
+                <input type="text" required placeholder="Alex Vance" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:outline-none focus:border-purple-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-slate-400 mb-1">Company / Studio</label>
+                <input type="text" required placeholder="Aether Labs Inc." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:outline-none focus:border-purple-500" />
+              </div>
             </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1">Work Email</label>
+              <input type="email" required placeholder="alex@aetherlabs.io" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:outline-none focus:border-purple-500" />
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 text-white font-extrabold text-xs shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Book Design Consultation</span>
+            </button>
+          </form>
+        </div>
+      `;
+    } else if (isPixelPage) {
+      modalBody.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <div>
+              <span class="text-[10px] font-mono text-amber-400 uppercase tracking-widest">DEMO RESERVATION</span>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Google Pixel 11 Pro</h2>
+            </div>
+            <span class="text-amber-400 font-mono font-bold text-xs">FROM $1,099</span>
           </div>
 
-          <div>
-            <label class="block text-xs font-mono text-slate-400 mb-1.5">2. CHOOSE STORAGE</label>
-            <div class="grid grid-cols-4 gap-2 text-center text-xs font-mono">
-              <button class="py-2.5 rounded-lg bg-amber-500 text-slate-950 font-bold">256GB</button>
-              <button class="py-2.5 rounded-lg bg-slate-900 border border-white/10 text-slate-300 hover:border-white/20">512GB</button>
-              <button class="py-2.5 rounded-lg bg-slate-900 border border-white/10 text-slate-300 hover:border-white/20">1TB</button>
-              <button class="py-2.5 rounded-lg bg-slate-900 border border-white/10 text-slate-300 hover:border-white/20">2TB Ultra</button>
+          <form id="pixel-preorder-form" class="space-y-3" onsubmit="confirmOrder(event)">
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1">Model & Storage</label>
+              <select class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs font-bold focus:outline-none focus:border-amber-500">
+                <option>Pixel 11 Pro 256GB — Obsidian Titanium ($1,099)</option>
+                <option>Pixel 11 Pro 512GB — Quantum Amber ($1,299)</option>
+                <option>Pixel 11 Pro 1TB — Cyber Rose ($1,499)</option>
+              </select>
             </div>
-          </div>
 
-          <div class="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2">
-            <div class="flex justify-between text-xs">
-              <span class="text-slate-400">Pixel 11 Pro (256GB, Titanium Obsidian):</span>
-              <span class="text-white font-bold">$1,099.00</span>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-mono text-slate-400 mb-1">Full Name</label>
+                <input type="text" required placeholder="John Doe" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-slate-400 mb-1">Email</label>
+                <input type="email" required placeholder="john@example.com" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-500" />
+              </div>
             </div>
-            <div class="flex justify-between text-xs">
-              <span class="text-slate-400">Launch Pre-order Google Store Bonus:</span>
-              <span class="text-emerald-400 font-bold">-$250.00 Credit</span>
-            </div>
-            <div class="flex justify-between text-xs pt-2 border-t border-white/10 font-bold">
-              <span class="text-white">Total Due Today:</span>
-              <span class="text-amber-400">$1,099.00</span>
-            </div>
-          </div>
 
-          <button onclick="confirmOrder()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 text-slate-950 font-extrabold text-xs shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-            <span>Complete Pixel 11 Pro Pre-order</span>
-          </button>
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 text-slate-950 font-extrabold text-xs shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              <span>Confirm Demo Reservation</span>
+            </button>
+          </form>
         </div>
       `;
     } else {
       modalBody.innerHTML = `
         <div class="space-y-5">
-          <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <div>
-              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-emerald-500/10 text-emerald-300 border-emerald-500/20 mb-1 inline-block">
-                國泰世華銀行 線上快速申辦
-              </span>
+              <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest">國泰世華銀行 線上申辦</span>
               <h2 class="text-2xl font-bold text-white tracking-tight">申辦信用卡資料確認</h2>
             </div>
-            <span class="text-emerald-400 font-mono font-bold">最快 3 分鐘核卡</span>
+            <span class="text-emerald-400 font-mono font-bold text-xs">最快 3 分鐘核卡</span>
           </div>
 
           <form id="cathay-apply-form" class="space-y-3" onsubmit="confirmOrder(event)">
@@ -489,7 +547,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.confirmOrder = function(e) {
     if (e) e.preventDefault();
-    if (isPixelPage) {
+    if (isAgencyPage) {
+      alert("🎉 Thank you for booking a consultation with NEXUS CREATIVE STUDIO! Our design directors will contact you within 24 hours.");
+    } else if (isPixelPage) {
       alert("🎉 Congratulations! Your Google Pixel 11 Pro pre-order reservation has been successfully registered!");
     } else {
       alert("🎉 恭喜！您已成功送出國泰世華信用卡線上申辦申請！");
@@ -518,31 +578,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Sound Toggle Button
-  if (soundToggleBtn) {
+  if (soundToggleBtn && soundIcon) {
     soundToggleBtn.addEventListener('click', () => {
       if (!window.soundEngine) return;
-      const isEnabled = window.soundEngine.toggle();
-      if (isEnabled) {
-        soundToggleBtn.classList.add('bg-amber-600/30', 'text-amber-300', 'border-amber-400/40');
-        soundIcon.setAttribute('data-lucide', 'volume-2');
-      } else {
-        soundToggleBtn.classList.remove('bg-amber-600/30', 'text-amber-300', 'border-amber-400/40');
+      const isMuted = window.soundEngine.toggleMute();
+      if (isMuted) {
         soundIcon.setAttribute('data-lucide', 'volume-x');
+        soundToggleBtn.classList.remove('text-purple-400', 'text-amber-400', 'text-emerald-400');
+        soundToggleBtn.classList.add('text-slate-400');
+      } else {
+        soundIcon.setAttribute('data-lucide', 'volume-2');
+        const activeColor = isAgencyPage ? 'purple' : (isPixelPage ? 'amber' : 'emerald');
+        soundToggleBtn.classList.add(`text-${activeColor}-400`);
+        soundToggleBtn.classList.remove('text-slate-400');
+        window.soundEngine.playClickSound();
       }
       if (window.lucide) lucide.createIcons();
     });
   }
 
-  // Reset Deck Button
-  if (resetStackBtn) {
-    resetStackBtn.addEventListener('click', () => {
-      const portfolioSection = document.getElementById('portfolio-section');
-      if (portfolioSection) portfolioSection.scrollIntoView({ behavior: 'smooth' });
-      if (window.soundEngine) window.soundEngine.playCardStackSound(700, 0.06);
-    });
-  }
-
-  // Initial Hydration
+  // Initial setup
   bindCardEvents();
-  updateProgressBar();
 });

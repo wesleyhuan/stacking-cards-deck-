@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS CREATIVE STUDIO — Award-Winning Digital Product & 3D Motion Agency</title>
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-purple-500 selection:text-white antialiased overflow-x-hidden">
+
+  <!-- Ambient Glow Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="bg-grid-pattern absolute inset-0 opacity-15"></div>
+  </div>
+
+  <!-- Top Scroll Progress Bar -->
+  <div id="scroll-progress-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 z-50 transition-all duration-75 w-0"></div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-40">
+    <nav class="glass-panel px-5 py-3 rounded-full flex items-center justify-between shadow-2xl border border-white/10 backdrop-blur-xl">
+      <!-- Agency Logo & Name -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-full bg-purple-600 border border-purple-400/40 flex items-center justify-center text-white font-black text-sm shadow-md group-hover:scale-105 transition-transform">
+          N
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-sm tracking-tight text-white group-hover:text-purple-300 transition-colors">NEXUS STUDIO</span>
+          <span class="text-[10px] text-slate-400 font-mono">3D & Digital Product Agency</span>
+        </div>
+      </a>
+
+      <!-- Navigation & Controls Right -->
+      <div class="flex items-center gap-3">
+        <!-- Switch Project Link -->
+        <a href="index.html" class="hidden md:flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-emerald-400 transition-colors px-2 py-1 rounded border border-white/5 hover:border-emerald-500/30">
+          <i data-lucide="credit-card" class="w-3.5 h-3.5"></i>
+          <span>Cathay Demo</span>
+        </a>
+        <a href="pixel11.html" class="hidden md:flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-amber-400 transition-colors px-2 py-1 rounded border border-white/5 hover:border-amber-500/30">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+          <span>Pixel 11 Demo</span>
+        </a>
+
+        <!-- View Switcher -->
+        <div class="bg-slate-900/80 p-1 rounded-full border border-white/10 flex items-center gap-1" id="view-mode-selector">
+          <button data-mode="stack" class="view-mode-btn active px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-200 bg-purple-500/20 border border-purple-400/40">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-purple-400"></i>
+            <span class="hidden sm:inline">Case Deck</span>
+          </button>
+          <button data-mode="grid" class="view-mode-btn px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-400 hover:text-slate-200">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Grid</span>
+          </button>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button id="sound-toggle-btn" class="w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all" title="Toggle Audio">
+          <i data-lucide="volume-x" id="sound-icon" class="w-3.5 h-3.5"></i>
+        </button>
+
+        <!-- Start Project Button -->
+        <button id="preorder-nav-btn" class="hidden sm:flex items-center gap-1.5 px-4 py-2 text-xs font-extrabold rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 text-white shadow-lg shadow-purple-500/25 transition-all hover:scale-105 active:scale-95">
+          <span>Start a Project</span>
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="min-h-screen pt-32 pb-16 px-6 max-w-5xl mx-auto flex flex-col justify-center text-center items-center relative">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs font-mono mb-6 backdrop-blur-md">
+      <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+      Awwwards Agency of the Year Nominee 2026
+    </div>
+
+    <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight mb-4">
+      We Craft Digital Products <br />
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">
+        That Define Tomorrow.
+      </span>
+    </h1>
+
+    <p class="text-slate-400 text-base sm:text-xl max-w-2xl font-light mb-8 leading-relaxed">
+      NEXUS is an award-winning creative agency specializing in Spatial UI/UX, 3D Real-time Motion, Web3 Fintech, and High-Conversion SaaS Architecture.
+    </p>
+
+    <!-- Photorealistic Agency Hero Showcase Graphic -->
+    <div class="relative w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-white/15 mb-10 group">
+      <img src="assets/images/agency_aether.jpg" alt="NEXUS Creative Studio Featured Work" class="w-full h-80 sm:h-96 object-cover transform group-hover:scale-105 transition-transform duration-700" />
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+      
+      <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between text-left">
+        <div>
+          <span class="text-[11px] font-mono text-purple-300 uppercase tracking-widest block">FEATURED CASE STUDY 2026</span>
+          <span class="text-lg sm:text-2xl font-extrabold text-white">AETHER — Next-Gen Spatial AI OS</span>
+        </div>
+        <span class="text-xs font-mono px-3 py-1.5 rounded-full bg-slate-900/90 border border-white/20 text-purple-400 font-bold">
+          RED DOT WINNER
+        </span>
+      </div>
+    </div>
+
+    <!-- Primary Action CTAs -->
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <button id="hero-preorder-btn" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 text-white font-extrabold text-sm shadow-xl shadow-purple-500/25 hover:brightness-110 flex items-center gap-2 transition-all hover:scale-105 active:scale-95">
+        <span>Book a Design Consultation</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </button>
+
+      <a href="#portfolio-section" class="px-6 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-white/10 text-slate-300 hover:text-white font-medium text-sm flex items-center gap-2 transition-all">
+        <span>Explore Case Studies Stack</span>
+        <i data-lucide="chevron-down" class="w-4 h-4 text-purple-400"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Sticky Controls Toolbar -->
+  <section class="sticky top-16 z-30 py-3 px-6 max-w-5xl mx-auto pointer-events-auto">
+    <div class="glass-panel p-2.5 rounded-2xl flex items-center justify-between gap-4 border border-white/10 shadow-2xl backdrop-blur-xl bg-slate-950/85">
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="category-filters">
+        <button data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-500 text-white transition-all shadow-md">
+          All Case Studies
+        </button>
+        <button data-filter="uiux" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          Spatial UI/UX
+        </button>
+        <button data-filter="3d" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          3D AR Motion
+        </button>
+        <button data-filter="fintech" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          Web3 FinTech
+        </button>
+        <button data-filter="brand" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          Spatial Brand
+        </button>
+        <button data-filter="saas" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          SaaS System
+        </button>
+      </div>
+
+      <!-- Live Counter & Reset -->
+      <div class="flex items-center gap-3 text-xs font-mono text-slate-400 shrink-0">
+        <span class="bg-slate-900 px-3 py-1 rounded-full border border-white/5 text-purple-400" id="active-card-counter">
+          Case 1 / 5
+        </span>
+        <button id="reset-stack-btn" class="hover:text-white transition-colors p-1" title="Reset Deck">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN STACKING FEATURE CARDS CONTAINER -->
+  <main id="portfolio-section" class="py-8 px-4 sm:px-6 max-w-4xl mx-auto transition-all duration-500">
+    <div id="cards-stack-wrapper" class="stack-mode flex flex-col gap-8 relative pb-40">
+      
+      <!-- CASE STUDY 1: AETHER -->
+      <div class="portfolio-card-item w-full" style="--card-index: 0;" data-id="aether-ai">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 01</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-purple-500/10 text-purple-300 border-purple-500/20">
+                    SPATIAL UI/UX ｜ AWARD WINNER
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">NEXUS STUDIO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-purple-300 transition-colors cursor-pointer card-title-click">
+                AETHER — Next-Gen AI OS
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                NEXUS designed AETHER, a revolutionary spatial operating system blending voice, eye-tracking, and zero-latency air gestures. Architected for next-generation spatial hardware headsets and smart environments.
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">USER ENGAGEMENT</span><span class="text-sm sm:text-base font-bold text-white font-mono">+340%</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">LATENCY</span><span class="text-sm sm:text-base font-bold text-white font-mono">0.4ms Sub-pixel</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">AWARD</span><span class="text-sm sm:text-base font-bold text-white font-mono">Red Dot Best</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">Spatial UI</span>
+                  <span class="skill-tag">Gesture AI</span>
+                  <span class="skill-tag">Design System</span>
+                  <span class="skill-tag">Multimodal OS</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>View Case Breakdown</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/agency_aether.jpg" alt="AETHER — Next-Gen AI OS" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-purple-400 font-bold">SPATIAL UI/UX</span>
+                <span>AETHER LABS</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-purple-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('aether-ai')">
+              <img src="assets/images/agency_aether_demo.jpg" alt="RED DOT DESIGN AWARD 2026" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-purple-500/90 text-white px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  RED DOT DESIGN AWARD 2026
+                </span>
+                <span class="text-purple-300 underline">Tap to View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 2: HYPERION -->
+      <div class="portfolio-card-item w-full" style="--card-index: 1;" data-id="hyperion-hud">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 02</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-teal-500/10 text-teal-300 border-teal-500/20">
+                    3D MOTION ｜ AUTOMOTIVE AR
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">NEXUS STUDIO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-purple-300 transition-colors cursor-pointer card-title-click">
+                HYPERION — 3D Hypercar HUD
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                Created an immersive 3D AR heads-up display for HYPERION EV Hypercar. Renders real-time track trajectory, thermal tire telemetry, and collision avoidance vectors directly onto the windshield.
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">RENDER SPEED</span><span class="text-sm sm:text-base font-bold text-white font-mono">120 FPS AR</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">DISTRACTION</span><span class="text-sm sm:text-base font-bold text-white font-mono">Zero Delay</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">AWARD</span><span class="text-sm sm:text-base font-bold text-white font-mono">iF Gold Award</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">3D Realtime</span>
+                  <span class="skill-tag">Automotive HUD</span>
+                  <span class="skill-tag">Unreal Engine 5</span>
+                  <span class="skill-tag">AR Telemetry</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-teal-400 via-emerald-500 to-cyan-400 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>View Case Breakdown</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/agency_hyperion.jpg" alt="HYPERION — 3D Hypercar HUD" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-teal-400 font-bold">3D MOTION ｜ AUTOMOTIVE AR</span>
+                <span>HYPERION MOTORS</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-teal-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('hyperion-hud')">
+              <img src="assets/images/agency_hyperion_demo.jpg" alt="IF DESIGN GOLD 2026" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-teal-500/90 text-slate-950 px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  IF DESIGN GOLD 2026
+                </span>
+                <span class="text-teal-300 underline">Tap to View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 3: LUMINA -->
+      <div class="portfolio-card-item w-full" style="--card-index: 2;" data-id="lumina-fintech">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 03</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-blue-500/10 text-blue-300 border-blue-500/20">
+                    FINTECH & WEB3 ｜ $4.2B VOLUME
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">NEXUS STUDIO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-purple-300 transition-colors cursor-pointer card-title-click">
+                LUMINA — Web3 DeFi Protocol
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                Reimagined institutional wealth management. LUMINA transforms complex cross-chain liquidity and yield protocols into an intuitive, one-tap mobile neo-banking experience.
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">VOLUME PROCESSED</span><span class="text-sm sm:text-base font-bold text-white font-mono">$4.2 Billion</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">APP STORE RATING</span><span class="text-sm sm:text-base font-bold text-white font-mono">4.9 ★★★★★</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">COMPLIANCE</span><span class="text-sm sm:text-base font-bold text-white font-mono">SOC2 Type II</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">DeFi Protocol</span>
+                  <span class="skill-tag">Neo-Banking</span>
+                  <span class="skill-tag">iOS & Android</span>
+                  <span class="skill-tag">Design System</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-blue-400 via-indigo-500 to-cyan-400 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>View Case Breakdown</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/agency_lumina.jpg" alt="LUMINA — Web3 DeFi Protocol" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-blue-400 font-bold">FINTECH & WEB3</span>
+                <span>LUMINA CAPITAL</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-blue-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('lumina-fintech')">
+              <img src="assets/images/agency_lumina_demo.jpg" alt="4.9 APP STORE RATING" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-blue-500/90 text-white px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  4.9 APP STORE RATING
+                </span>
+                <span class="text-blue-300 underline">Tap to View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 4: VALKYRIE -->
+      <div class="portfolio-card-item w-full" style="--card-index: 3;" data-id="valkyrie-brand">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 04</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-rose-500/10 text-rose-300 border-rose-500/20">
+                    SPATIAL E-COMMERCE ｜ +180% CONVERSION
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">NEXUS STUDIO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-purple-300 transition-colors cursor-pointer card-title-click">
+                VALKYRIE — Haute Couture
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                Designed a digital flagship store for luxury fashion house VALKYRIE. Shoppers customize 3D photorealistic avatars and preview real-time fabric physics on digital runways.
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">CHECKOUT CONV.</span><span class="text-sm sm:text-base font-bold text-white font-mono">+180%</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">3D CLOTH SIM</span><span class="text-sm sm:text-base font-bold text-white font-mono">60 FPS WebGL</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">AWARD</span><span class="text-sm sm:text-base font-bold text-white font-mono">Awwwards SOTM</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">3D E-Commerce</span>
+                  <span class="skill-tag">WebGL Cloth Sim</span>
+                  <span class="skill-tag">Luxury Branding</span>
+                  <span class="skill-tag">Spatial Store</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-rose-400 via-pink-500 to-red-500 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>View Case Breakdown</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/agency_valkyrie.jpg" alt="VALKYRIE — Haute Couture" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-rose-400 font-bold">SPATIAL E-COMMERCE</span>
+                <span>VALKYRIE HAUTE COUTURE</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-rose-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('valkyrie-brand')">
+              <img src="assets/images/agency_valkyrie_demo.jpg" alt="AWWWARDS SITE OF THE MONTH" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-rose-500/90 text-white px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  AWWWARDS SITE OF THE MONTH
+                </span>
+                <span class="text-rose-300 underline">Tap to View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 5: NOVA -->
+      <div class="portfolio-card-item w-full" style="--card-index: 4;" data-id="nova-saas">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 05</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-amber-500/10 text-amber-300 border-amber-500/20">
+                    ENTERPRISE SAAS ｜ 100K+ TEAMS
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">NEXUS STUDIO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-purple-300 transition-colors cursor-pointer card-title-click">
+                NOVA — Quantum Cloud System
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                Crafted an enterprise observability platform for NOVA Systems. Visualizes millions of distributed server metrics, traces, and AI anomaly alerts in a single dark-mode canvas.
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">ACTIVE TEAMS</span><span class="text-sm sm:text-base font-bold text-white font-mono">100,000+</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">STREAMING</span><span class="text-sm sm:text-base font-bold text-white font-mono">&lt;1ms Latency</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">AWARD</span><span class="text-sm sm:text-base font-bold text-white font-mono">FWA SOTD</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">SaaS Dashboard</span>
+                  <span class="skill-tag">Data Viz</span>
+                  <span class="skill-tag">Edge Monitoring</span>
+                  <span class="skill-tag">Design System</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-400 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>View Case Breakdown</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/agency_nova.jpg" alt="NOVA — Quantum Cloud System" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-amber-400 font-bold">ENTERPRISE SAAS</span>
+                <span>NOVA SYSTEMS</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-amber-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('nova-saas')">
+              <img src="assets/images/agency_nova_demo.jpg" alt="FWA SITE OF THE DAY" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-amber-500/90 text-slate-950 px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  FWA SITE OF THE DAY
+                </span>
+                <span class="text-amber-300 underline">Tap to View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Agency Contact & Consultation Footer Section -->
+  <footer id="contact" class="py-16 px-6 max-w-4xl mx-auto border-t border-white/10 text-center">
+    <h3 class="text-2xl sm:text-4xl font-extrabold text-white mb-2">Ready to Build Your Next Flagship Experience?</h3>
+    <p class="text-slate-400 text-sm mb-6 max-w-md mx-auto">
+      Partner with NEXUS CREATIVE STUDIO to transform your product vision into an award-winning digital experience.
+    </p>
+
+    <button id="footer-preorder-btn" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 text-white font-extrabold text-xs shadow-xl shadow-purple-500/25 hover:brightness-110 transition-all hover:scale-105 mb-10">
+      <i data-lucide="mail" class="w-4 h-4"></i>
+      <span>Start a Project Consultation</span>
+    </button>
+
+    <div class="text-slate-500 text-xs font-mono flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+      <span>© 2026 NEXUS CREATIVE STUDIO. All Rights Reserved.</span>
+      <div class="flex items-center gap-5 text-slate-400">
+        <a href="index.html" class="hover:text-emerald-400 transition-colors">Cathay Bank Demo</a>
+        <a href="pixel11.html" class="hover:text-amber-400 transition-colors">Pixel 11 Demo</a>
+        <a href="#hero" class="hover:text-white transition-colors">Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CONSULTATION MODAL DRAWER -->
+  <div id="card-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="modal-backdrop" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
+
+    <div class="glass-panel w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl border border-white/20 bg-slate-900/95 shadow-2xl p-6 sm:p-8 relative z-10 scale-95 transition-transform duration-300" id="modal-box">
+      <button id="close-modal-btn" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div id="modal-body-content">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/cardsData.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

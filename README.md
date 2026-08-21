@@ -8,13 +8,17 @@ Built with **HTML5, Tailwind CSS, Vanilla JavaScript, Lucide Icons**, and an int
 
 ## 🌐 Live Google Cloud Platform (GCP) Deployment
 
-Both interactive showcase websites are deployed live on **Google Cloud App Engine**:
+All three interactive showcase websites are deployed live on **Google Cloud App Engine**:
 
-1. 💳 **Cathay United Bank Credit Cards Demo Platform**:
+1. 🎨 **NEXUS CREATIVE STUDIO — Design & 3D Motion Agency**:
+   - **Live Production URL**: [https://gen-lang-client-0954299193.de.r.appspot.com/agency.html](https://gen-lang-client-0954299193.de.r.appspot.com/agency.html)
+   - **Local URL**: `http://localhost:8080/agency.html`
+
+2. 💳 **Cathay United Bank Credit Cards Demo Platform**:
    - **Live Production URL**: [https://gen-lang-client-0954299193.de.r.appspot.com/](https://gen-lang-client-0954299193.de.r.appspot.com/)
    - **Local URL**: `http://localhost:8080/index.html`
 
-2. 📱 **Google Pixel 11 Pro Flagship Launch Showcase**:
+3. 📱 **Google Pixel 11 Pro Flagship Launch Showcase**:
    - **Live Production URL**: [https://gen-lang-client-0954299193.de.r.appspot.com/pixel11.html](https://gen-lang-client-0954299193.de.r.appspot.com/pixel11.html)
    - **Local URL**: `http://localhost:8080/pixel11.html`
 
@@ -22,31 +26,22 @@ Both interactive showcase websites are deployed live on **Google Cloud App Engin
 
 ## 🎯 Best Use Cases & Why Use This Design?
 
-The **3D Stacking Cards** pattern is one of the most effective web design structures for modern product marketing and storytelling. Here is where it excels and why it outperforms traditional flat layouts:
+The **3D Stacking Cards** pattern is one of the most effective web design structures for modern product marketing and storytelling:
 
-### 1. 🚀 SaaS & Tech Product Feature Landing Pages
-* **Best For**: Cloud platforms, developer tools, AI applications, project management tools (e.g. Stripe, Linear, Vercel).
-* **Why It Works**: Breaks complex software features into bite-sized, sequential cards (Card 1: Analytics, Card 2: Automated Billing, Card 3: Security, Card 4: Global Edge). As users scroll, each card locks in place, creating a natural step-by-step narrative that builds user trust.
+### 1. 🎨 Design Agency & Studio Portfolios (`agency.html`)
+* **Featured Showcase**: **NEXUS CREATIVE STUDIO**
+* **Case Studies**: AETHER (Spatial AI OS), HYPERION (3D AR Cockpit), LUMINA (Web3 DeFi), VALKYRIE (Haute Couture 3D Store), NOVA (Quantum Cloud SaaS).
+* **Why It Works**: Highlights 5 flagship case studies in a memorable 3D sticky deck, immediately differentiating your agency from standard template portfolios.
 
-### 2. 💳 FinTech, Credit Cards & Membership Tier Showcases
-* **Best For**: Banks, Neo-banks, reward credit cards (e.g. Cathay Bank CUBE, Gold, Platinum, Black Card).
-* **Why It Works**: Physically mimics a deck of credit cards in a wallet. As the user scrolls, new physical card tiers slide over previous ones, visually reinforcing prestige, higher reward percentages, and membership status.
+### 2. 💳 FinTech, Credit Cards & Membership Tier Showcases (`index.html`)
+* **Featured Showcase**: **Cathay United Bank Credit Cards**
+* **Featured Cards**: CUBE卡 (3.3% 小樹點), 亞洲萬里通, 蝦皮購物 (26% 蝦幣), 世界卡 (米其林5折), 長榮航空 (官網9折).
+* **Why It Works**: Physically mimics a deck of credit cards in a wallet. As the user scrolls, new physical card tiers slide over previous ones.
 
-### 3. 🚗 Luxury E-Commerce & High-End Hardware Launches
-* **Best For**: Smartphones, Electric Vehicles (Tesla/Rivian), Luxury Watches, Premium Headphones.
-* **Why It Works**: Gives each flagship product specification (display, camera, chipset, battery) full-screen hero focus without competing with other elements on the page.
-
-### 4. 🎨 Design Agency & Studio Portfolios
-* **Best For**: Branding agencies, 3D motion studios, architectural firms, digital product consultants.
-* **Why It Works**: Highlights 4–6 flagship case studies in a memorable 3D sticky deck, immediately differentiating your agency from standard template portfolios.
-
-### 5. 🎟️ Event, Conference & Keynote Landing Pages
-* **Best For**: Tech summits, developer conferences (Google I/O, WWDC), music festivals.
-* **Why It Works**: Organizes multi-day schedules chronologically (Card 1: Day 1 Keynote, Card 2: Day 2 Workshops, Card 3: Day 3 Afterparty & Networking) so attendees absorb the timeline naturally.
-
-### 6. 🎓 Online Courses & Masterclass Syllabi
-* **Best For**: Tech bootcamps, executive education, specialized academies.
-* **Why It Works**: Visually demonstrates how knowledge stacks sequentially (Module 1 → Module 2 → Module 3), encouraging enrollment by showing clear learning progression.
+### 3. 🚗 Luxury E-Commerce & High-End Hardware Launches (`pixel11.html`)
+* **Featured Showcase**: **Google Pixel 11 Pro Flagship Launch**
+* **Featured Cards**: 144Hz Super Actua Display, 200MP Quantum Camera, TSMC 3nm Tensor G5 AI, 5000mAh HyperCharge, Titan M3 Security.
+* **Why It Works**: Gives each flagship product specification full-screen hero focus without competing with other elements on the page.
 
 ---
 
@@ -59,51 +54,22 @@ The **3D Stacking Cards** pattern is one of the most effective web design struct
 
 ---
 
-## 🌟 Showcase Demos Overview
-
-### 1. 💳 Cathay United Bank Credit Cards Platform (`index.html`)
-- **Theme**: Commercial Banking & Credit Card Selection Platform based on official data from Cathay United Bank.
-- **Featured Cards**: CUBE卡 (3.3% 小樹點無上限), 亞洲萬里通 (NT$10=1里), 蝦皮購物 (26% 蝦幣), 世界卡 (米其林5折), 長榮航空 (官網9折).
-- **Features**: Theme-matched credit card renders, online card application drawer, category filter pills, non-official disclaimer system.
-
-### 2. 📱 Google Pixel 11 Pro Flagship Launch Showcase (`pixel11.html`)
-- **Theme**: Commercial Smartphone Marketing Landing Page for the Google Pixel 11 Pro.
-- **Featured Cards**: Super Actua Pro 144Hz OLED Display, 200MP Quantum Camera, TSMC 3nm Tensor G5 AI, 5000mAh HyperCharge, Titan M3 Security.
-- **Features**: Photorealistic 8K product graphic renders, dual photo galleries per card, pre-order modal drawer.
-
----
-
-## 🚀 Key Framework Features
-
-- **⚡ 60fps Scroll Overlap Physics**: Utilizes `requestAnimationFrame` and passive scroll listeners to calculate card overlap ratios, dynamically driving:
-  - **Scale**: `scale(1.0 -> 0.95)`
-  - **Opacity**: `opacity(1.0 -> 0.70)`
-  - **Depth Blur**: `blur(0px -> 3px)`
-- **📐 Precise Sticky Math**: Employs CSS custom properties `--card-index` to calculate sticky offset locking:
-  `top: calc(110px + var(--card-index) * 28px)`
-- **🔀 Dual-View Switcher**: Seamlessly toggles between interactive **3D Feature Stack** and **Responsive Grid View**.
-- **🎯 Category Filter Pills**: Dynamically filters cards by category (`All`, `Popular`, `Travel`, `Online`, `Luxury`) with instant animation.
-- **⚡ Progressive Fallback Hydration**: Cards are pre-rendered directly in HTML to guarantee **100% immediate rendering** on any browser environment before client-side JS executes.
-- **🔊 WebAudio UI Synth Engine**: Custom WebAudio sound engine producing futuristic tactile click and card-sliding audio feedback.
-- **⚖️ Educational & Portfolio Disclaimer System**: Top warning banner and footer disclaimer box clarifying non-official demo status and immediate takedown policy.
-
----
-
 ## 📁 Repository Structure
 
 ```text
 web_design3/
 ├── app.yaml                     # Google Cloud App Engine deployment configuration
+├── agency.html                  # NEXUS Creative Studio Design Agency Showcase Site
 ├── index.html                   # Cathay United Bank Credit Cards Demo Site
 ├── pixel11.html                 # Google Pixel 11 Pro Marketing Demo Site
 ├── css/
 │   └── styles.css               # Core CSS sticky math, backdrop filters, animations
 ├── js/
 │   ├── app.js                   # Universal scroll physics, view mode & modal engine
-│   ├── cardsData.js             # Datasets for Cathay Cards & Pixel 11 Cards
+│   ├── cardsData.js             # Datasets for Agency, Cathay Cards & Pixel 11 Cards
 │   └── sound.js                 # WebAudio synthesis sound engine
 ├── assets/
-│   └── images/                  # High-resolution photorealistic product & card graphics
+│   └── images/                  # High-resolution photorealistic product & agency graphics
 ├── .agents/
 │   └── skills/
 │       └── stacking-cards-design/
@@ -136,30 +102,5 @@ gcloud app deploy --project=gen-lang-client-0954299193
 
 To adapt this web design for your own product, SaaS, or portfolio:
 
-1. Edit [`js/cardsData.js`](file:///C:/Users/wesle/Desktop/antigravity/web_design3/js/cardsData.js) and add your product details:
-
-```javascript
-window.myProductCardsData = [
-  {
-    id: "feature-1",
-    number: "01",
-    category: "popular",
-    badge: "FEATURE CATEGORY",
-    title: "Your Feature Title",
-    description: "Detailed description of your product feature...",
-    metrics: [
-      { label: "METRIC 1", value: "100%" },
-      { label: "METRIC 2", value: "24/7" }
-    ],
-    image: "assets/images/your_feature_image.jpg"
-  }
-];
-```
-
-2. Duplicate `index.html` or `pixel11.html` and update the pre-rendered HTML cards in `#cards-stack-wrapper`.
-
----
-
-## 📜 License & Disclaimer
-
-This framework is created for **educational, portfolio, and UI/UX demonstration purposes**. Trademarks, logos, and product names (such as Cathay United Bank and Google Pixel) belong to their respective copyright holders and are used solely for illustrative mockup purposes.
+1. Edit [`js/cardsData.js`](file:///C:/Users/wesle/Desktop/antigravity/web_design3/js/cardsData.js) and add your product details.
+2. Duplicate `agency.html`, `index.html`, or `pixel11.html` and update the pre-rendered HTML cards in `#cards-stack-wrapper`.

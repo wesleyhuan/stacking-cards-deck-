@@ -1,9 +1,168 @@
 /**
  * Combined Data Module for Stacking Cards Effect
- * Contains both Google Pixel 11 Pro Marketing dataset and Cathay United Bank Credit Cards dataset.
+ * Contains datasets for Google Pixel 11 Pro, Cathay United Bank, and NEXUS Creative Design Agency.
  */
 
-// 1. Google Pixel 11 Pro Marketing Dataset
+// 1. NEXUS Creative Design Agency Dataset
+window.agencyCardsData = [
+  {
+    id: "aether-ai",
+    number: "01",
+    category: "uiux",
+    badge: "SPATIAL UI/UX ｜ AWARD WINNER",
+    title: "AETHER — Next-Gen AI OS",
+    subtitle: "Spatial AI Operating System & Gesture Interaction",
+    tagline: "Redefining human-computer interaction for the spatial computing era.",
+    color: "from-purple-500 via-indigo-500 to-pink-500",
+    badgeColor: "bg-purple-500/10 text-purple-300 border-purple-500/20",
+    image: "assets/images/agency_aether.jpg",
+    promoImage: "assets/images/agency_aether_demo.jpg",
+    promoBadge: "RED DOT DESIGN AWARD 2026",
+    metrics: [
+      { label: "USER ENGAGEMENT", value: "+340%" },
+      { label: "LATENCY", value: "0.4ms Sub-pixel" },
+      { label: "AWARD", value: "Red Dot Best" }
+    ],
+    tags: ["Spatial UI", "Gesture AI", "Design System", "Multimodal OS"],
+    description: "NEXUS designed AETHER, a revolutionary spatial operating system blending voice, eye-tracking, and zero-latency air gestures. Architected for next-generation spatial hardware headsets and smart environments.",
+    deepDive: {
+      headline: "The future of ambient software interaction.",
+      details: "Built an adaptive glassmorphic design language with fluid spatial physics that dynamically scales UI elements based on user gaze intent and hand velocity.",
+      specs: [
+        "Complete 3D spatial design system with over 200+ modular UI components",
+        "Sub-millisecond eye-gaze targeting and micro-gesture feedback loop",
+        "Awwwards Site of the Year nominee & Red Dot Best of the Best 2026",
+        "Designed for Apple Vision Pro, Meta Quest Ultra, and WebXR"
+      ]
+    }
+  },
+  {
+    id: "hyperion-hud",
+    number: "02",
+    category: "3d",
+    badge: "3D MOTION ｜ AUTOMOTIVE AR",
+    title: "HYPERION — 3D Hypercar HUD",
+    subtitle: "Autonomous Electric Hypercar Real-Time AR Cockpit",
+    tagline: "Ultra-fast 120 FPS Augmented Reality heads-up display for track telemetry.",
+    color: "from-teal-400 via-emerald-500 to-cyan-400",
+    badgeColor: "bg-teal-500/10 text-teal-300 border-teal-500/20",
+    image: "assets/images/agency_hyperion.jpg",
+    promoImage: "assets/images/agency_hyperion_demo.jpg",
+    promoBadge: "IF DESIGN GOLD 2026",
+    metrics: [
+      { label: "RENDER SPEED", value: "120 FPS AR" },
+      { label: "DISTRACTION", value: "Zero Delay" },
+      { label: "AWARD", value: "iF Gold Award" }
+    ],
+    tags: ["3D Realtime", "Automotive HUD", "Unreal Engine 5", "AR Telemetry"],
+    description: "Created an immersive 3D AR heads-up display for HYPERION EV Hypercar. Renders real-time track trajectory, thermal tire telemetry, and collision avoidance vectors directly onto the windshield.",
+    deepDive: {
+      headline: "High-speed precision real-time 3D telemetry.",
+      details: "Utilized Unreal Engine 5 custom shaders to project high-contrast HUD graphics that maintain 100% legibility under direct sunlight and high-speed track maneuvers.",
+      specs: [
+        "Unreal Engine 5 realtime GPU shader pipeline rendering at 120 FPS",
+        "Zero-distraction focal depth positioning mapped to driver eye-level",
+        "iF Design Gold Award winner for Automotive & Mobility 2026",
+        "Integrated into 500+ production electric hypercar cockpits"
+      ]
+    }
+  },
+  {
+    id: "lumina-fintech",
+    number: "03",
+    category: "fintech",
+    badge: "FINTECH & WEB3 ｜ $4.2B VOLUME",
+    title: "LUMINA — Web3 DeFi Protocol",
+    subtitle: "Institutional Asset Protocol & Neo-Banking App",
+    tagline: "Democratizing global liquidity through elegant, secure interface design.",
+    color: "from-blue-400 via-indigo-500 to-cyan-400",
+    badgeColor: "bg-blue-500/10 text-blue-300 border-blue-500/20",
+    image: "assets/images/agency_lumina.jpg",
+    promoImage: "assets/images/agency_lumina_demo.jpg",
+    promoBadge: "4.9 APP STORE RATING",
+    metrics: [
+      { label: "VOLUME PROCESSED", value: "$4.2 Billion" },
+      { label: "APP STORE RATING", value: "4.9 ★★★★★" },
+      { label: "COMPLIANCE", value: "SOC2 Type II" }
+    ],
+    tags: ["DeFi Protocol", "Neo-Banking", "iOS & Android", "Design System"],
+    description: "Reimagined institutional wealth management. LUMINA transforms complex cross-chain liquidity and yield protocols into an intuitive, one-tap mobile neo-banking experience.",
+    deepDive: {
+      headline: "Complex financial primitives rendered effortless.",
+      details: "Streamlined multi-signature vault approvals, automated portfolio rebalancing, and real-time yield analytics into a clean, reassuring UI.",
+      specs: [
+        "Processed over $4.2 Billion in total volume within 6 months of launch",
+        "Maintained 4.9 App Store rating across 150,000+ active investor reviews",
+        "Biometric hardware security integration with instant zero-knowledge proofs",
+        "FWA Site of the Day & UX Design Awards Winner"
+      ]
+    }
+  },
+  {
+    id: "valkyrie-brand",
+    number: "04",
+    category: "brand",
+    badge: "SPATIAL E-COMMERCE ｜ +180% CONVERSION",
+    title: "VALKYRIE — Haute Couture",
+    subtitle: "Interactive 3D Avatar Fitting Room & Brand Experience",
+    tagline: "Blending Parisian luxury fashion with cutting-edge 3D WebGL rendering.",
+    color: "from-rose-400 via-pink-500 to-red-500",
+    badgeColor: "bg-rose-500/10 text-rose-300 border-rose-500/20",
+    image: "assets/images/agency_valkyrie.jpg",
+    promoImage: "assets/images/agency_valkyrie_demo.jpg",
+    promoBadge: "AWWWARDS SITE OF THE MONTH",
+    metrics: [
+      { label: "CHECKOUT CONV.", value: "+180%" },
+      { label: "3D CLOTH SIM", value: "60 FPS WebGL" },
+      { label: "AWARD", value: "Awwwards SOTM" }
+    ],
+    tags: ["3D E-Commerce", "WebGL Cloth Sim", "Luxury Branding", "Spatial Store"],
+    description: "Designed a digital flagship store for luxury fashion house VALKYRIE. Shoppers customize 3D photorealistic avatars and preview real-time fabric physics on digital runways.",
+    deepDive: {
+      headline: "The future of high-fashion digital retail.",
+      details: "Developed a custom Three.js cloth simulation engine that runs smoothly in browser windows on mobile devices without plugins.",
+      specs: [
+        "Boosted online checkout conversion rate by +180% year-over-year",
+        "Real-time Three.js WebGL GPU cloth simulation & ray-traced lighting",
+        "Awwwards Site of the Month & Webby Award Winner for Best Shopping Experience",
+        "Seamless Shopify Plus & headless 3D catalog architecture"
+      ]
+    }
+  },
+  {
+    id: "nova-saas",
+    number: "05",
+    category: "saas",
+    badge: "ENTERPRISE SAAS ｜ 100K+ TEAMS",
+    title: "NOVA — Quantum Cloud System",
+    subtitle: "High-Frequency Data Visualization & Real-time Edge Monitoring",
+    tagline: "Empowering engineering teams with sub-millisecond cloud observability.",
+    color: "from-amber-400 via-orange-500 to-yellow-400",
+    badgeColor: "bg-amber-500/10 text-amber-300 border-amber-500/20",
+    image: "assets/images/agency_nova.jpg",
+    promoImage: "assets/images/agency_nova_demo.jpg",
+    promoBadge: "FWA SITE OF THE DAY",
+    metrics: [
+      { label: "ACTIVE TEAMS", value: "100,000+" },
+      { label: "STREAMING", value: "<1ms Latency" },
+      { label: "AWARD", value: "FWA SOTD" }
+    ],
+    tags: ["SaaS Dashboard", "Data Viz", "Edge Monitoring", "Design System"],
+    description: "Crafted an enterprise observability platform for NOVA Systems. Visualizes millions of distributed server metrics, traces, and AI anomaly alerts in a single dark-mode canvas.",
+    deepDive: {
+      headline: "Scaling complex data visualization to 100,000+ teams.",
+      details: "Built an ultra-fast Canvas2D chart rendering engine capable of displaying 1,000,000 live data points at 60 FPS.",
+      specs: [
+        "Adopted by over 100,000+ DevOps and engineering teams globally",
+        "Canvas2D GPU accelerated charting engine handling 1M+ live telemetry points",
+        "FWA Site of the Day & CSS Design Awards Special Kudos",
+        "Custom dark-mode accessibility color palette with high-contrast alert modes"
+      ]
+    }
+  }
+];
+
+// 2. Google Pixel 11 Pro Marketing Dataset
 window.pixelCardsData = [
   {
     id: "design-display",
@@ -162,7 +321,7 @@ window.pixelCardsData = [
   }
 ];
 
-// 2. Cathay United Bank Credit Cards Dataset (Theme-Verified Images)
+// 3. Cathay United Bank Credit Cards Dataset
 window.cathayCardsData = [
   {
     id: "cube-card",
