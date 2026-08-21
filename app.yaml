@@ -1,0 +1,36 @@
+runtime: python312
+instance_class: F1
+
+handlers:
+# Serve root index.html
+- url: /
+  static_files: index.html
+  upload: index.html
+  secure: always
+
+# Serve pixel11.html demo
+- url: /pixel11.html
+  static_files: pixel11.html
+  upload: pixel11.html
+  secure: always
+
+# Serve CSS stylesheet directory
+- url: /css
+  static_dir: css
+  secure: always
+
+# Serve JavaScript directory
+- url: /js
+  static_dir: js
+  secure: always
+
+# Serve assets (images) directory
+- url: /assets
+  static_dir: assets
+  secure: always
+
+# Catch-all handler for all other static assets
+- url: /(.*)
+  static_files: \1
+  upload: (.*)
+  secure: always

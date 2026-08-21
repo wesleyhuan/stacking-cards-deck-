@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>國泰世華銀行 — 信用卡概念設計展示 (非官方 Demo 頁面)</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950 antialiased overflow-x-hidden">
+
+  <!-- Ambient Glow Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="bg-grid-pattern absolute inset-0 opacity-15"></div>
+  </div>
+
+  <!-- Top Scroll Progress Bar -->
+  <div id="scroll-progress-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-400 z-50 transition-all duration-75 w-0"></div>
+
+  <!-- Disclaimer Top Notification Bar -->
+  <div class="bg-amber-500/10 border-b border-amber-500/30 py-1.5 px-4 text-center text-[11px] font-mono text-amber-300 relative z-50 flex items-center justify-center gap-2">
+    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+    <span>【非官方技術概念展示】本網站僅作為個人網頁設計作品展示，非國泰世華銀行官方網站，亦無進行任何金融業務。</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-10 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-40">
+    <nav class="glass-panel px-5 py-3 rounded-full flex items-center justify-between shadow-2xl border border-white/10 backdrop-blur-xl">
+      <!-- Cathay Green Tree Logo & Name -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-full bg-emerald-600 border border-emerald-400/40 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
+          <i data-lucide="tree-deciduous" class="w-4 h-4 text-emerald-200"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-sm tracking-tight text-white group-hover:text-emerald-300 transition-colors">國泰世華信用卡概念館</span>
+          <span class="text-[10px] text-slate-400 font-mono">UI/UX Design Demo</span>
+        </div>
+      </a>
+
+      <!-- Right Controls: View Switcher & Audio & Apply Button -->
+      <div class="flex items-center gap-3">
+        <!-- Switch Project Link -->
+        <a href="pixel11.html" class="hidden md:flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-amber-400 transition-colors px-2 py-1 rounded border border-white/5 hover:border-amber-500/30">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+          <span>Switch to Pixel 11 Demo</span>
+        </a>
+
+        <!-- View Switcher -->
+        <div class="bg-slate-900/80 p-1 rounded-full border border-white/10 flex items-center gap-1" id="view-mode-selector">
+          <button data-mode="stack" class="view-mode-btn active px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-200 bg-emerald-500/20 border border-emerald-400/40">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="hidden sm:inline">卡片堆疊</span>
+          </button>
+          <button data-mode="grid" class="view-mode-btn px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-400 hover:text-slate-200">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">網格</span>
+          </button>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button id="sound-toggle-btn" class="w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all" title="開關音效">
+          <i data-lucide="volume-x" id="sound-icon" class="w-3.5 h-3.5"></i>
+        </button>
+
+        <!-- Apply Button -->
+        <button id="preorder-nav-btn" class="hidden sm:flex items-center gap-1.5 px-4 py-2 text-xs font-extrabold rounded-full bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 text-slate-950 shadow-lg shadow-emerald-500/25 transition-all hover:scale-105 active:scale-95">
+          <span>線上辦卡 Demo</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="min-h-screen pt-36 pb-16 px-6 max-w-5xl mx-auto flex flex-col justify-center text-center items-center relative">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 text-xs font-mono mb-6 backdrop-blur-md">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      國泰世華信用卡 3D 堆疊卡片互動展示 (Portfolio Concept)
+    </div>
+
+    <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight mb-4">
+      國泰世華信用卡 <br />
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300">
+        3D 堆疊互動設計概念館
+      </span>
+    </h1>
+
+    <p class="text-slate-400 text-base sm:text-xl max-w-2xl font-light mb-8 leading-relaxed">
+      體驗現代化 3D 卡片滾動堆疊效果！呈現 CUBE 卡 3.3% 小樹點無上限、亞洲萬里通 NT$10=1里、蝦皮購物最高 26% 蝦幣回饋及頂級米其林 5 折權益。
+    </p>
+
+    <!-- Photorealistic Cathay Card Hero Graphic -->
+    <div class="relative w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-white/15 mb-10 group">
+      <img src="assets/images/cathay_cube.jpg" alt="國泰世華 CUBE 卡產品圖" class="w-full h-80 sm:h-96 object-cover transform group-hover:scale-105 transition-transform duration-700" />
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+      
+      <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between text-left">
+        <div>
+          <span class="text-[11px] font-mono text-emerald-300 uppercase tracking-widest block">熱門主打卡片 ｜ CONCEPT DEMO</span>
+          <span class="text-lg sm:text-2xl font-extrabold text-white">國泰世華 CUBE 卡</span>
+        </div>
+        <span class="text-xs font-mono px-3 py-1.5 rounded-full bg-slate-900/90 border border-white/20 text-emerald-400 font-bold">
+          3.3% 小樹點無上限
+        </span>
+      </div>
+    </div>
+
+    <!-- Primary Action CTAs -->
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <button id="hero-preorder-btn" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/25 hover:brightness-110 flex items-center gap-2 transition-all hover:scale-105 active:scale-95">
+        <span>模擬線上申辦</span>
+        <i data-lucide="credit-card" class="w-4 h-4"></i>
+      </button>
+
+      <a href="#portfolio-section" class="px-6 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-white/10 text-slate-300 hover:text-white font-medium text-sm flex items-center gap-2 transition-all">
+        <span>探索卡片堆疊權益</span>
+        <i data-lucide="chevron-down" class="w-4 h-4 text-emerald-400"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Sticky Controls Toolbar -->
+  <section class="sticky top-20 z-30 py-3 px-6 max-w-5xl mx-auto pointer-events-auto">
+    <div class="glass-panel p-2.5 rounded-2xl flex items-center justify-between gap-4 border border-white/10 shadow-2xl backdrop-blur-xl bg-slate-950/85">
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="category-filters">
+        <button data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-slate-950 transition-all shadow-md">
+          全部卡片
+        </button>
+        <button data-filter="popular" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          熱門主打
+        </button>
+        <button data-filter="flight" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          哩程/旅遊
+        </button>
+        <button data-filter="online" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          網購優惠
+        </button>
+        <button data-filter="cash" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-slate-200 transition-all">
+          頂級尊榮
+        </button>
+      </div>
+
+      <!-- Live Counter & Reset -->
+      <div class="flex items-center gap-3 text-xs font-mono text-slate-400 shrink-0">
+        <span class="bg-slate-900 px-3 py-1 rounded-full border border-white/5 text-emerald-400" id="active-card-counter">
+          卡片 1 / 5
+        </span>
+        <button id="reset-stack-btn" class="hover:text-white transition-colors p-1" title="重設堆疊">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN STACKING FEATURE CARDS CONTAINER -->
+  <main id="portfolio-section" class="py-8 px-4 sm:px-6 max-w-4xl mx-auto transition-all duration-500">
+    <div id="cards-stack-wrapper" class="stack-mode flex flex-col gap-8 relative pb-40">
+      
+      <!-- CARD 1: CUBE卡 -->
+      <div class="portfolio-card-item w-full" style="--card-index: 0;" data-id="cube-card">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 01</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-emerald-500/10 text-emerald-300 border-emerald-500/20">
+                    熱門主打｜權益隨切隨換
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">CATHAY BANK DEMO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-emerald-300 transition-colors cursor-pointer card-title-click">
+                國泰世華 CUBE 卡
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                CUBE卡獨創自由切換權益模式！玩數位、樂饗購、趣旅行、集精選與慶生月，每天可透過國泰世華CUBE App切換最適合的方案，指定消費享最高 3.3% 小樹點(信用卡)回饋無上限。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">回饋率</span><span class="text-sm sm:text-base font-bold text-white font-mono">3.3% 無上限</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">權益方案</span><span class="text-sm sm:text-base font-bold text-white font-mono">5 大隨心切</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">點數折抵</span><span class="text-sm sm:text-base font-bold text-white font-mono">即時 1:1 折抵</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">小樹點回饋</span>
+                  <span class="skill-tag">權益天天切</span>
+                  <span class="skill-tag">即時折抵</span>
+                  <span class="skill-tag">指定通路加碼</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>查看詳細權益</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/cathay_cube.jpg" alt="國泰世華 CUBE 卡" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-emerald-400 font-bold">熱門主打｜權益隨切隨換</span>
+                <span>國泰世華 CUBE</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-emerald-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('cube-card')">
+              <img src="assets/images/cathay_cube_reward.jpg" alt="最高 3.3% 小樹點回饋無上限" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-emerald-500/90 text-slate-950 px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  最高 3.3% 小樹點回饋無上限
+                </span>
+                <span class="text-emerald-300 underline">點擊查看詳情</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: 亞洲萬里通聯名卡 -->
+      <div class="portfolio-card-item w-full" style="--card-index: 1;" data-id="asia-miles">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 02</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-blue-500/10 text-blue-300 border-blue-500/20">
+                    哩程回饋｜環球飛行尊榮
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">CATHAY BANK DEMO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-emerald-300 transition-colors cursor-pointer card-title-click">
+                亞洲萬里通聯名卡
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                專為愛旅遊與飛行族群打造！國內外指定消費享「哩程加速器」最優 NT$10 = 1 里，生日當月消費更享 2 倍驚喜回饋，輕鬆兌換全球航空公司免費機票。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">哩程回饋</span><span class="text-sm sm:text-base font-bold text-white font-mono">NT$10 = 1里</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">生日加碼</span><span class="text-sm sm:text-base font-bold text-white font-mono">2 倍哩程贈</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">機票優惠</span><span class="text-sm sm:text-base font-bold text-white font-mono">國泰航空92折</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">哩程加速器</span>
+                  <span class="skill-tag">生日2倍哩</span>
+                  <span class="skill-tag">機場貴賓室</span>
+                  <span class="skill-tag">國泰航空優惠</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-blue-400 via-indigo-500 to-cyan-400 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>查看詳細權益</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/cathay_asiamiles.jpg" alt="亞洲萬里通聯名卡" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-blue-400 font-bold">哩程回饋｜環球飛行尊榮</span>
+                <span>國泰世華 亞洲萬里通</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-blue-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('asia-miles')">
+              <img src="assets/images/cathay_asiamiles_travel.jpg" alt="生日月哩程 2 倍速飆升" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-blue-500/90 text-white px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  生日月哩程 2 倍速飆升
+                </span>
+                <span class="text-blue-300 underline">點擊查看詳情</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: 蝦皮購物聯名卡 -->
+      <div class="portfolio-card-item w-full" style="--card-index: 2;" data-id="shopee-card">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 03</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-orange-500/10 text-orange-300 border-orange-500/20">
+                    網購神卡｜蝦幣狂飆
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">CATHAY BANK DEMO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-emerald-300 transition-colors cursor-pointer card-title-click">
+                蝦皮購物聯名卡
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                蝦皮購物買家最強刷卡神器！站內消費享有高額蝦幣回饋，搭配促銷活動最高可達 26% 蝦幣，且月月消費達標即贈蝦皮免運券，海外網購再享免手續費優惠。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">蝦幣回饋</span><span class="text-sm sm:text-base font-bold text-white font-mono">最高 26%</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">海外消費</span><span class="text-sm sm:text-base font-bold text-white font-mono">免手續費</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">免運禮遇</span><span class="text-sm sm:text-base font-bold text-white font-mono">月月贈免運券</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">26%蝦幣</span>
+                  <span class="skill-tag">月月免運券</span>
+                  <span class="skill-tag">海外免手續費</span>
+                  <span class="skill-tag">站內消費回饋</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-orange-400 via-amber-500 to-red-500 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>查看詳細權益</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/cathay_shopee.jpg" alt="蝦皮購物聯名卡" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-orange-400 font-bold">網購神卡｜蝦幣狂飆</span>
+                <span>國泰世華 蝦皮購物</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-orange-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('shopee-card')">
+              <img src="assets/images/cathay_shopee_shopping.jpg" alt="最高 26% 蝦幣回饋 + 月月免運" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-orange-500/90 text-slate-950 px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  最高 26% 蝦幣回饋 + 月月免運
+                </span>
+                <span class="text-orange-300 underline">點擊查看詳情</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: 世界卡 -->
+      <div class="portfolio-card-item w-full" style="--card-index: 3;" data-id="world-card">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 04</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-amber-500/10 text-amber-300 border-amber-500/20">
+                    頂級旗艦｜尊榮奢華
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">CATHAY BANK DEMO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-emerald-300 transition-colors cursor-pointer card-title-click">
+                國泰世華 世界卡
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                頂尖品味人士的標誌！國泰世華世界卡提供頂級飯店與米其林星級美饌 2 人同行 5 折起優惠，並享有麗晶精品黑卡禮遇及專屬 24 小時頂級秘書服務。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">美饌優惠</span><span class="text-sm sm:text-base font-bold text-white font-mono">2人行 5折</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">頂級飯店</span><span class="text-sm sm:text-base font-bold text-white font-mono">尊榮 95折</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">財富管理</span><span class="text-sm sm:text-base font-bold text-white font-mono">VIP加碼禮</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">米其林5折</span>
+                  <span class="skill-tag">頂級飯店禮遇</span>
+                  <span class="skill-tag">麗晶黑卡禮遇</span>
+                  <span class="skill-tag">財富管理VIP</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-600 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>查看詳細權益</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/cathay_world_card.jpg" alt="國泰世華 世界卡" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-amber-300 font-bold">頂級旗艦｜尊榮奢華</span>
+                <span>國泰世華 世界卡</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-amber-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('world-card')">
+              <img src="assets/images/cathay_world_dining.jpg" alt="米其林美饌 2 人 5 折禮遇" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-amber-500/90 text-slate-950 px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  米其林美饌 2 人 5 折禮遇
+                </span>
+                <span class="text-amber-300 underline">點擊查看詳情</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: 長榮航空聯名卡 -->
+      <div class="portfolio-card-item w-full" style="--card-index: 4;" data-id="eva-air">
+        <div class="portfolio-card-inner p-6 sm:p-7 flex flex-col lg:flex-row gap-6 items-stretch">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="card-number-badge"># 05</span>
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border bg-emerald-500/10 text-emerald-300 border-emerald-500/20">
+                    長榮聯名｜機艙升等
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-slate-500">CATHAY BANK DEMO</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2 hover:text-emerald-300 transition-colors cursor-pointer card-title-click">
+                長榮航空聯名卡
+              </h2>
+              <p class="text-slate-300 text-sm font-light mb-4 leading-relaxed">
+                長榮航空商務與旅遊飛行首選！指定海外消費與長榮官網購票享「倍速哩遇」最優 NT$10 = 1 哩，消費達檻再享 25,000 哩優惠兌換長榮尊榮機艙升等。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-2 py-3 my-3 border-y border-white/10">
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">倍速哩遇</span><span class="text-sm sm:text-base font-bold text-white font-mono">NT$10 = 1哩</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">機票優惠</span><span class="text-sm sm:text-base font-bold text-white font-mono">長榮9折起</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-slate-400 font-mono">尊榮升等</span><span class="text-sm sm:text-base font-bold text-white font-mono">25,000哩換升等</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="skill-tag">長榮9折</span>
+                  <span class="skill-tag">倍速哩遇</span>
+                  <span class="skill-tag">免費機場接送</span>
+                  <span class="skill-tag">尊榮機艙升等</span>
+                </div>
+                <button class="inspect-btn text-xs font-semibold font-mono text-white bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-4 py-2 rounded-full shadow-md hover:brightness-110 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95">
+                  <span>查看詳細權益</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
+            <div class="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-white/15 shadow-xl group">
+              <img src="assets/images/cathay_eva_card.jpg" alt="長榮航空聯名卡" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="text-emerald-400 font-bold">長榮聯名｜機艙升等</span>
+                <span>國泰世華 長榮航空</span>
+              </div>
+            </div>
+            <div class="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-emerald-400/30 shadow-lg group cursor-pointer" onclick="openCardModalByDataId('eva-air')">
+              <img src="assets/images/cathay_eva_flight.jpg" alt="長榮官網購票 9 折優惠" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-mono font-bold text-white">
+                <span class="flex items-center gap-1 bg-emerald-500/90 text-slate-950 px-2 py-0.5 rounded">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i>
+                  長榮官網購票 9 折優惠
+                </span>
+                <span class="text-emerald-300 underline">點擊查看詳情</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Detailed Legal & Educational Disclaimer Footer Section -->
+  <footer id="contact" class="py-16 px-6 max-w-4xl mx-auto border-t border-white/10 text-center">
+    
+    <!-- Prominent Disclaimer Box -->
+    <div class="mb-10 p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-left text-xs leading-relaxed space-y-2">
+      <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+        <span>非官方與個人作品集聲明 (DISCLAIMER)</span>
+      </div>
+      <p class="text-slate-300">
+        本網站為個人 Front-End UI/UX 前端網頁設計與 3D 滾動堆疊技術效果展示頁面，非國泰世華銀行官方網站。
+      </p>
+      <p class="text-slate-400 text-[11px]">
+        網頁內所使用之名稱、標誌、卡片圖樣及產品權益介紹（包含國泰世華銀行、CUBE卡、亞洲萬里通、蝦皮購物、世界卡、長榮航空等）版權均屬原註冊公司所有，此處僅作為概念模擬情境展示。本網站不進行任何實際金融交易、信用卡申辦或個人資料搜集。若原著作權人或相關單位認為本範例頁面有任何使用疑慮，請告知，將會第一時間立即全站移除。
+      </p>
+    </div>
+
+    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">體驗 3D 卡片堆疊 UI/UX 互動設計</h3>
+    <p class="text-slate-400 text-sm mb-6 max-w-md mx-auto">
+      線上模擬辦卡互動流程與卡片權益切換體驗。
+    </p>
+
+    <button id="footer-preorder-btn" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 text-slate-950 font-extrabold text-xs shadow-xl shadow-emerald-500/25 hover:brightness-110 transition-all hover:scale-105 mb-10">
+      <i data-lucide="credit-card" class="w-4 h-4"></i>
+      <span>模擬線上申辦卡片 Demo</span>
+    </button>
+
+    <div class="text-slate-500 text-xs font-mono flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+      <span>© 2026 Personal Web Design Portfolio (Demo Purposes Only).</span>
+      <div class="flex items-center gap-5 text-slate-400">
+        <a href="https://www.cathaybk.com.tw" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1">
+          <span>國泰世華官方網站</span>
+          <i data-lucide="external-link" class="w-3 h-3"></i>
+        </a>
+        <a href="pixel11.html" class="hover:text-amber-400 transition-colors">Pixel 11 Demo</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CARD APPLY MODAL DRAWER -->
+  <div id="card-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="modal-backdrop" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
+
+    <div class="glass-panel w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl border border-white/20 bg-slate-900/95 shadow-2xl p-6 sm:p-8 relative z-10 scale-95 transition-transform duration-300" id="modal-box">
+      <button id="close-modal-btn" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div id="modal-body-content">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/cardsData.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
