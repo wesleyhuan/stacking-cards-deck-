@@ -149,6 +149,62 @@
 }
 
 /* Grid Mode Switch Override */
+/* ==========================================================================
+   PRE-STACKED DECK MODE (Hover to Pop-Out)
+   ========================================================================== */
+#cards-stack-wrapper.prestacked-mode {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 1rem;
+  padding-bottom: 6rem;
+}
+
+#cards-stack-wrapper.prestacked-mode .portfolio-card-item {
+  position: relative;
+  top: 0 !important;
+  margin-top: -180px;
+  z-index: calc(10 + var(--card-index));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              z-index 0.1s ease,
+              opacity 0.3s ease,
+              filter 0.3s ease,
+              box-shadow 0.4s ease;
+  transform-origin: center top;
+  cursor: pointer;
+}
+
+#cards-stack-wrapper.prestacked-mode .portfolio-card-item:first-child {
+  margin-top: 0;
+}
+
+/* Header Strip Peek Preview when collapsed */
+#cards-stack-wrapper.prestacked-mode .portfolio-card-inner {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Hover / Touch Active Pop-Out State */
+#cards-stack-wrapper.prestacked-mode .portfolio-card-item:hover,
+#cards-stack-wrapper.prestacked-mode .portfolio-card-item.card-active {
+  z-index: 100 !important;
+  transform: translateY(-50px) scale(1.03) !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+#cards-stack-wrapper.prestacked-mode .portfolio-card-item:hover .portfolio-card-inner,
+#cards-stack-wrapper.prestacked-mode .portfolio-card-item.card-active .portfolio-card-inner {
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 0 35px 70px -15px rgba(168, 85, 247, 0.35), 0 0 40px 0 rgba(168, 85, 247, 0.25);
+}
+
+/* Dim non-hovered sibling cards */
+#cards-stack-wrapper.prestacked-mode:hover .portfolio-card-item:not(:hover) {
+  opacity: 0.6;
+  filter: blur(1px);
+}
+
+/* Grid Mode Switch Override */
 #cards-stack-wrapper.grid-mode {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));

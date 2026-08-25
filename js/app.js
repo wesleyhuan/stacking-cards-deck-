@@ -56,6 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.addEventListener('click', () => openCardModal(card));
         }
       });
+
+      // Mouseenter audio & active state
+      if (!cardEl.dataset.hoverBound) {
+        cardEl.dataset.hoverBound = "true";
+        cardEl.addEventListener('mouseenter', () => {
+          if (activeMode === 'prestacked' && window.soundEngine) {
+            window.soundEngine.playCardSlideSound();
+          }
+        });
+
+        // Mobile tap to toggle card active state
+        cardEl.addEventListener('click', (e) => {
+          if (activeMode === 'prestacked' && !e.target.closest('.inspect-btn')) {
+            cards.forEach(c => c.classList.remove('card-active'));
+            cardEl.classList.add('card-active');
+          }
+        });
+      }
     });
     updateCounterText();
     updateStackPhysics();
@@ -285,16 +303,23 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.remove('text-slate-400');
 
       if (!cardsWrapper) return;
+      cardsWrapper.classList.remove('stack-mode', 'grid-mode', 'prestacked-mode');
+
       if (activeMode === 'grid') {
-        cardsWrapper.classList.remove('stack-mode');
         cardsWrapper.classList.add('grid-mode');
         cards.forEach(card => {
           card.style.transform = 'none';
           card.style.opacity = '1';
           card.style.filter = 'none';
         });
+      } else if (activeMode === 'prestacked') {
+        cardsWrapper.classList.add('prestacked-mode');
+        cards.forEach(card => {
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.filter = '';
+        });
       } else {
-        cardsWrapper.classList.remove('grid-mode');
         cardsWrapper.classList.add('stack-mode');
         updateStackPhysics();
       }
