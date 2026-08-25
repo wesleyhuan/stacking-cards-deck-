@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.remove('text-slate-400');
 
       if (!cardsWrapper) return;
-      cardsWrapper.classList.remove('stack-mode', 'grid-mode', 'prestacked-mode');
+      cardsWrapper.classList.remove('stack-mode', 'grid-mode', 'prestacked-mode', 'horizontal-mode');
 
       if (activeMode === 'grid') {
         cardsWrapper.classList.add('grid-mode');
@@ -314,6 +314,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (activeMode === 'prestacked') {
         cardsWrapper.classList.add('prestacked-mode');
+        cards.forEach(card => {
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.filter = '';
+        });
+      } else if (activeMode === 'horizontal') {
+        cardsWrapper.classList.add('horizontal-mode');
         cards.forEach(card => {
           card.style.transform = '';
           card.style.opacity = '';
