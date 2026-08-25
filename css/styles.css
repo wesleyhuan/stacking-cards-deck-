@@ -239,16 +239,17 @@ body:has(#cards-stack-wrapper.horizontal-mode) #portfolio-section,
 }
 
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item {
-  flex: 0 0 360px;
-  width: 360px;
-  min-width: 360px;
-  margin-left: -150px;
+  flex: 0 0 680px;
+  width: 680px;
+  min-width: 680px;
+  margin-left: -520px; /* Stack cards much closer together */
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   position: relative;
   top: 0 !important;
   z-index: calc(10 + var(--card-index));
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               z-index 0.1s ease,
               opacity 0.3s ease,
               filter 0.3s ease,
@@ -262,17 +263,14 @@ body:has(#cards-stack-wrapper.horizontal-mode) #portfolio-section,
 }
 
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item:last-child {
-  margin-right: 2rem !important; /* Right edge padding clearance */
+  margin-right: 4rem !important; /* Right edge padding clearance */
 }
 
 /* Card inner styling in horizontal mode */
 #cards-stack-wrapper.horizontal-mode .portfolio-card-inner {
   height: 100%;
-  min-height: 480px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: -12px 18px 40px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  box-shadow: -15px 20px 45px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   background: linear-gradient(145deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
 }
 
@@ -280,7 +278,7 @@ body:has(#cards-stack-wrapper.horizontal-mode) #portfolio-section,
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item:hover,
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item.card-active {
   z-index: 100 !important;
-  transform: translateY(-40px) scale(1.04) !important;
+  transform: translateY(-40px) scale(1.02) !important;
   opacity: 1 !important;
   filter: none !important;
 }
