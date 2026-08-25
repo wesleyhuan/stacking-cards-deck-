@@ -302,6 +302,9 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('active', `bg-${activeColor}-500/20`, 'border', `border-${activeColor}-400/40`, 'text-slate-200');
       btn.classList.remove('text-slate-400');
 
+      const portfolioSection = document.getElementById('portfolio-section');
+      if (portfolioSection) portfolioSection.classList.remove('has-horizontal');
+
       if (!cardsWrapper) return;
       cardsWrapper.classList.remove('stack-mode', 'grid-mode', 'prestacked-mode', 'horizontal-mode');
 
@@ -321,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (activeMode === 'horizontal') {
         cardsWrapper.classList.add('horizontal-mode');
+        if (portfolioSection) portfolioSection.classList.add('has-horizontal');
         cards.forEach(card => {
           card.style.transform = '';
           card.style.opacity = '';

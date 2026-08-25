@@ -210,24 +210,39 @@
 /* ==========================================================================
    HORIZONTAL STACKING DECK MODE (Horizontal Overlapping Fan & Pop-Out)
    ========================================================================== */
+#portfolio-section {
+  transition: max-width 0.4s ease;
+}
+
+/* Allow horizontal container to expand smoothly */
+body:has(#cards-stack-wrapper.horizontal-mode) #portfolio-section,
+#portfolio-section.has-horizontal {
+  max-width: 72rem !important; /* Expand container width */
+}
+
 #cards-stack-wrapper.horizontal-mode {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: stretch;
   position: relative;
-  min-height: 540px;
-  padding: 3rem 1.5rem 4rem 1.5rem;
+  min-height: 580px;
+  padding-top: 5rem !important;   /* Top clearance so pop-out translateY(-40px) is never cut off */
+  padding-bottom: 3.5rem !important;
+  padding-left: 3rem !important;  /* Side clearance */
+  padding-right: 4rem !important;
   overflow-x: auto;
   overflow-y: visible;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item {
-  flex: 0 0 340px;
-  width: 340px;
-  margin-left: -170px;
+  flex: 0 0 360px;
+  width: 360px;
+  min-width: 360px;
+  margin-left: -150px;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   position: relative;
@@ -243,16 +258,21 @@
 }
 
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item:first-child {
-  margin-left: 0;
+  margin-left: 0 !important;
+}
+
+#cards-stack-wrapper.horizontal-mode .portfolio-card-item:last-child {
+  margin-right: 2rem !important; /* Right edge padding clearance */
 }
 
 /* Card inner styling in horizontal mode */
 #cards-stack-wrapper.horizontal-mode .portfolio-card-inner {
   height: 100%;
+  min-height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: -10px 15px 35px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  box-shadow: -12px 18px 40px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   background: linear-gradient(145deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
 }
 
@@ -260,7 +280,7 @@
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item:hover,
 #cards-stack-wrapper.horizontal-mode .portfolio-card-item.card-active {
   z-index: 100 !important;
-  transform: translateY(-40px) scale(1.06) !important;
+  transform: translateY(-40px) scale(1.04) !important;
   opacity: 1 !important;
   filter: none !important;
 }
