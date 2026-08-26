@@ -6,6 +6,7 @@ description: >-
   (1) Scroll Stacking Deck (cards stack as you scroll down), (2) Vertical Pre-Stacked Deck
   (cards pre-stacked in 1 section with hover pop-out), (3) Horizontal Pre-Stacked Deck
   (cards pre-stacked horizontally with hover pop-out), and (4) Responsive Grid View.
+  Instructs the agent to prompt the user to choose their preferred layout style before building.
 ---
 
 # 3D Stacking Cards Web Design Skill
@@ -14,20 +15,36 @@ This skill provides a complete blueprint and procedural guide for creating high-
 
 ---
 
-## 🔀 1. Supported Interaction Modes
+## ❓ 1. Interactive Style Prompting Protocol
+
+When activating this skill to build or convert a website for a user, **the AI agent MUST FIRST prompt the user** to choose their preferred initial card layout style:
+
+> **Agent Prompt Question**:
+> *"Which 3D Stacking Card style would you like for your website layout?"*
+> 
+> 1. 📜 **Scroll Stacking Deck** (`stack`) — Cards stack dynamically over each other as you scroll down the page. (Best for storytelling & long feature pages).
+> 2. 🎴 **Vertical Pre-Stacked Deck** (`prestacked`) — Cards are pre-stacked in 1 compact section (height ~560px), popping out when hovered. (Best for compact hero sections & portfolios).
+> 3. 🖼️ **Horizontal Pre-Stacked Deck** (`horizontal`) — Full-sized cards pre-stacked in a horizontal overlapping fan, popping up/out when hovered. (Best for gallery showcases & mobile decks).
+> 4. 🔲 **Responsive Grid View** (`grid`) — Standard side-by-side grid layout without card overlap.
+
+Once the user selects their option, set `let activeMode` in `js/app.js` to the chosen mode (`'stack'`, `'prestacked'`, `'horizontal'`, or `'grid'`).
+
+---
+
+## 🔀 2. Supported Interaction Modes Matrix
 
 The framework supports **4 interchangeable view modes** out of the box:
 
 | View Mode | Class Name | Interaction & Behavior | Best Used For |
 | :--- | :--- | :--- | :--- |
-| **1. Scroll Stack (Default)** | `.stack-mode` | Cards stack dynamically on scroll via CSS sticky + 60fps physics (`scale`, `opacity`, `blur`). | Long landing pages, feature walkthroughs, storytelling. |
+| **1. Scroll Stack** | `.stack-mode` | Cards stack dynamically on scroll via CSS sticky + 60fps physics (`scale`, `opacity`, `blur`). | Long landing pages, feature walkthroughs, storytelling. |
 | **2. Vertical Pre-Stacked Deck** | `.prestacked-mode` | Cards pre-stacked in **1 compact vertical section** (height ~560px). Hovering pops card up to front. | Compact portfolio sections, compact hero showcases. |
 | **3. Horizontal Pre-Stacked Deck** | `.horizontal-mode` | Full-sized cards pre-stacked in a **horizontal overlapping fan deck**. Hovering pops card up/out. | Mobile swipe decks, gallery showcases, card fan decks. |
 | **4. Responsive Grid** | `.grid-mode` | Standard 2-column responsive layout without stacking overlap. | Traditional browsing, quick comparison across all items. |
 
 ---
 
-## 📐 2. Scroll Physics & Sticky Math Formula
+## 📐 3. Scroll Physics & Sticky Math Formula
 
 For **Scroll Stack Mode** (`.stack-mode`):
 - **Sticky Offset Formula**:
@@ -41,7 +58,7 @@ For **Scroll Stack Mode** (`.stack-mode`):
 
 ---
 
-## 🃏 3. Pre-Stacked Hover & Pop-Out Math Formula
+## 🃏 4. Pre-Stacked Hover & Pop-Out Math Formula
 
 For **Vertical Pre-Stacked Mode** (`.prestacked-mode`):
 - **Container Height**: Fixed compact section height (`height: 560px`).
@@ -54,7 +71,7 @@ For **Horizontal Pre-Stacked Mode** (`.horizontal-mode`):
 
 ---
 
-## 🛠️ 4. HTML Markup Template
+## 🛠️ 5. HTML Markup Template
 
 Every card element must be wrapped in `.portfolio-card-item` with inline style `--card-index`:
 
@@ -89,18 +106,18 @@ Every card element must be wrapped in `.portfolio-card-item` with inline style `
 
 ---
 
-## 🚀 5. How to Set Your Preferred Default Mode
+## 🚀 6. Configuring Initial Default Mode
 
-In `js/app.js`, set `let activeMode` to your preferred initial style:
+In `js/app.js`, set `let activeMode` based on the user's answer from the interactive prompt:
 
 ```javascript
-// Options: 'stack' (Scroll Stack), 'prestacked' (Vertical Deck), 'horizontal' (Horizontal Deck), 'grid' (Grid)
-let activeMode = 'stack'; // Change to 'prestacked' or 'horizontal' for pre-stacked deck by default
+// User's choice from prompt: 'stack', 'prestacked', 'horizontal', or 'grid'
+let activeMode = 'stack'; 
 ```
 
 ---
 
-## ☀️ 6. Bright Light & Dark Mode Support
+## ☀️ 7. Bright Light & Dark Mode Support
 
 Include Theme Toggle button handler in `js/app.js` with `localStorage` persistence:
 - Adds `.light` class to `<html>` and `<body>` when Bright mode is selected.
