@@ -56,6 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.addEventListener('click', () => openCardModal(card));
         }
       });
+
+      // Mouseenter audio & active state
+      if (!cardEl.dataset.hoverBound) {
+        cardEl.dataset.hoverBound = "true";
+        cardEl.addEventListener('mouseenter', () => {
+          if (activeMode === 'prestacked' && window.soundEngine) {
+            window.soundEngine.playCardSlideSound();
+          }
+        });
+
+        // Mobile tap to toggle card active state
+        cardEl.addEventListener('click', (e) => {
+          if (activeMode === 'prestacked' && !e.target.closest('.inspect-btn')) {
+            cards.forEach(c => c.classList.remove('card-active'));
+            cardEl.classList.add('card-active');
+          }
+        });
+      }
     });
     updateCounterText();
     updateStackPhysics();
@@ -284,17 +302,35 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('active', `bg-${activeColor}-500/20`, 'border', `border-${activeColor}-400/40`, 'text-slate-200');
       btn.classList.remove('text-slate-400');
 
+      const portfolioSection = document.getElementById('portfolio-section');
+      if (portfolioSection) portfolioSection.classList.remove('has-horizontal');
+
       if (!cardsWrapper) return;
+      cardsWrapper.classList.remove('stack-mode', 'grid-mode', 'prestacked-mode', 'horizontal-mode');
+
       if (activeMode === 'grid') {
-        cardsWrapper.classList.remove('stack-mode');
         cardsWrapper.classList.add('grid-mode');
         cards.forEach(card => {
           card.style.transform = 'none';
           card.style.opacity = '1';
           card.style.filter = 'none';
         });
+      } else if (activeMode === 'prestacked') {
+        cardsWrapper.classList.add('prestacked-mode');
+        cards.forEach(card => {
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.filter = '';
+        });
+      } else if (activeMode === 'horizontal') {
+        cardsWrapper.classList.add('horizontal-mode');
+        if (portfolioSection) portfolioSection.classList.add('has-horizontal');
+        cards.forEach(card => {
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.filter = '';
+        });
       } else {
-        cardsWrapper.classList.remove('grid-mode');
         cardsWrapper.classList.add('stack-mode');
         updateStackPhysics();
       }
@@ -323,6 +359,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
       renderCards(filter);
       if (window.soundEngine) window.soundEngine.playCardSlideSound();
+    });
+  }
+
+  // Theme Toggle Button Handler (Dark / Bright Light Mode)
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+      document.body.classList.add('light');
+      if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+      document.body.classList.remove('light');
+      if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // Load saved theme from localStorage
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  applyTheme(savedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isLight = document.documentElement.classList.contains('light');
+      const newTheme = isLight ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      applyTheme(newTheme);
+      if (window.soundEngine) window.soundEngine.playClickSound();
     });
   }
 

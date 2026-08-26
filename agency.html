@@ -58,13 +58,26 @@
         <div class="bg-slate-900/80 p-1 rounded-full border border-white/10 flex items-center gap-1" id="view-mode-selector">
           <button data-mode="stack" class="view-mode-btn active px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-200 bg-purple-500/20 border border-purple-400/40">
             <i data-lucide="layers" class="w-3.5 h-3.5 text-purple-400"></i>
-            <span class="hidden sm:inline">Case Deck</span>
+            <span class="hidden sm:inline">Scroll Stack</span>
+          </button>
+          <button data-mode="prestacked" class="view-mode-btn px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-400 hover:text-slate-200">
+            <i data-lucide="square-stack" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Vertical Deck</span>
+          </button>
+          <button data-mode="horizontal" class="view-mode-btn px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-400 hover:text-slate-200">
+            <i data-lucide="gallery-thumbnails" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Horizontal Deck</span>
           </button>
           <button data-mode="grid" class="view-mode-btn px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all text-slate-400 hover:text-slate-200">
             <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
             <span class="hidden sm:inline">Grid</span>
           </button>
         </div>
+
+        <!-- Theme Toggle (Bright / Dark Mode) -->
+        <button id="theme-toggle-btn" class="w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all" title="Toggle Bright / Dark Theme">
+          <i data-lucide="moon" id="theme-icon" class="w-3.5 h-3.5"></i>
+        </button>
 
         <!-- Sound Toggle -->
         <button id="sound-toggle-btn" class="w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all" title="Toggle Audio">
