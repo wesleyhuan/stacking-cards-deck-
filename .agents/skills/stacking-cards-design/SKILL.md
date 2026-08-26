@@ -2,37 +2,61 @@
 name: stacking-cards-design
 description: >-
   Use this skill to design, build, or convert any landing page or showcase website
-  into an interactive 3D Stacking Cards scroll experience. Provides step-by-step
-  instructions, CSS sticky positioning math, 60fps requestAnimationFrame scroll physics
-  (scaling, opacity dimming, depth blur), dual-view mode switching (Stack vs Grid),
-  category filtering, progressive HTML fallback hydration, and modal drawer integration.
+  into an interactive 3D Stacking Cards experience. Supports 4 view modes out of the box:
+  (1) Scroll Stacking Deck (cards stack as you scroll down), (2) Vertical Pre-Stacked Deck
+  (cards pre-stacked in 1 section with hover pop-out), (3) Horizontal Pre-Stacked Deck
+  (cards pre-stacked horizontally with hover pop-out), and (4) Responsive Grid View.
 ---
 
 # 3D Stacking Cards Web Design Skill
 
-This skill provides a complete blueprint and procedural guide for creating high-impact **3D Stacking Cards** landing pages and showcase websites.
+This skill provides a complete blueprint and procedural guide for creating high-impact **3D Stacking Cards** landing pages, portfolio showcases, and product launch websites.
 
 ---
 
-## 📐 1. Architecture & Math Principle
+## 🔀 1. Supported Interaction Modes
 
-The Stacking Cards effect relies on **CSS Sticky Positioning** coupled with **JS Scroll Physics**:
+The framework supports **4 interchangeable view modes** out of the box:
 
-1. **Parent Wrapper**: Must have a relative position and sufficient bottom padding (`pb-40`) to allow scrolling past all cards.
-2. **Sticky Top Formula**:
-   $$\text{top} = \text{headerOffset} + (\text{cardIndex} \times \text{gapStep})$$
-   Example: `top: calc(110px + var(--card-index) * 28px);`
-3. **Scroll Overlap Physics**:
-   As the user scrolls, lower cards slide up over previous cards. `requestAnimationFrame` calculates the overlap ratio and dynamically applies:
-   - **Scale**: `scale(1.0 -> 0.95)`
-   - **Opacity**: `opacity(1.0 -> 0.70)`
-   - **Filter**: `blur(0px -> 3px)`
+| View Mode | Class Name | Interaction & Behavior | Best Used For |
+| :--- | :--- | :--- | :--- |
+| **1. Scroll Stack (Default)** | `.stack-mode` | Cards stack dynamically on scroll via CSS sticky + 60fps physics (`scale`, `opacity`, `blur`). | Long landing pages, feature walkthroughs, storytelling. |
+| **2. Vertical Pre-Stacked Deck** | `.prestacked-mode` | Cards pre-stacked in **1 compact vertical section** (height ~560px). Hovering pops card up to front. | Compact portfolio sections, compact hero showcases. |
+| **3. Horizontal Pre-Stacked Deck** | `.horizontal-mode` | Full-sized cards pre-stacked in a **horizontal overlapping fan deck**. Hovering pops card up/out. | Mobile swipe decks, gallery showcases, card fan decks. |
+| **4. Responsive Grid** | `.grid-mode` | Standard 2-column responsive layout without stacking overlap. | Traditional browsing, quick comparison across all items. |
 
 ---
 
-## 🛠️ 2. HTML Markup Template
+## 📐 2. Scroll Physics & Sticky Math Formula
 
-Every card element must be wrapped in `.portfolio-card-item` with a inline style for `--card-index`:
+For **Scroll Stack Mode** (`.stack-mode`):
+- **Sticky Offset Formula**:
+  $$\text{top} = \text{headerOffset} + (\text{cardIndex} \times \text{gapStep})$$
+  Example: `top: calc(110px + var(--card-index) * 28px);`
+- **60fps Overlap Physics**:
+  Calculated in `requestAnimationFrame`:
+  - **Scale**: `scale(1.0 -> 0.95)`
+  - **Opacity**: `opacity(1.0 -> 0.70)`
+  - **Depth Blur**: `blur(0px -> 3px)`
+
+---
+
+## 🃏 3. Pre-Stacked Hover & Pop-Out Math Formula
+
+For **Vertical Pre-Stacked Mode** (`.prestacked-mode`):
+- **Container Height**: Fixed compact section height (`height: 560px`).
+- **Card Offset**: `top: calc(var(--card-index) * 60px);`
+- **Hover Pop-Out**: `z-index: 100 !important; transform: translateY(-45px) scale(1.03);`
+
+For **Horizontal Pre-Stacked Mode** (`.horizontal-mode`):
+- **Card Overlap**: `flex: 0 0 680px; margin-left: -520px;` (preserves full original card shape).
+- **Hover Pop-Out**: `z-index: 100 !important; transform: translateY(-40px) scale(1.02);`
+
+---
+
+## 🛠️ 4. HTML Markup Template
+
+Every card element must be wrapped in `.portfolio-card-item` with inline style `--card-index`:
 
 ```html
 <main id="portfolio-section" class="py-8 px-4 sm:px-6 max-w-4xl mx-auto">
@@ -65,104 +89,19 @@ Every card element must be wrapped in `.portfolio-card-item` with a inline style
 
 ---
 
-## 🎨 3. Essential CSS Stylesheet (`css/styles.css`)
+## 🚀 5. How to Set Your Preferred Default Mode
 
-```css
-/* Stack Mode Sticky Calculation */
-.stack-mode .portfolio-card-item {
-  position: sticky;
-  top: calc(110px + var(--card-index) * 28px);
-  transition: transform 0.15s ease-out, opacity 0.15s ease-out, filter 0.15s ease-out;
-  will-change: transform, opacity, filter;
-  z-index: calc(10 + var(--card-index));
-}
-
-.portfolio-card-inner {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-/* Grid Mode Override */
-.grid-mode {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  padding-bottom: 2rem !important;
-}
-
-.grid-mode .portfolio-card-item {
-  position: relative !important;
-  top: 0 !important;
-  transform: none !important;
-  opacity: 1 !important;
-  filter: none !important;
-}
-```
-
----
-
-## ⚡ 4. 60fps Scroll Physics Engine (`js/app.js`)
+In `js/app.js`, set `let activeMode` to your preferred initial style:
 
 ```javascript
-function updateStackPhysics() {
-  const cards = Array.from(document.querySelectorAll('.portfolio-card-item'));
-  const topOffset = 110;
-  const gapStep = 28;
-
-  cards.forEach((card, index) => {
-    const stickyTop = topOffset + (index * gapStep);
-
-    if (index < cards.length - 1) {
-      const nextCard = cards[index + 1];
-      const nextRect = nextCard.getBoundingClientRect();
-      const overlapProgress = Math.max(0, Math.min(1, (stickyTop + 140 - nextRect.top) / 240));
-
-      if (overlapProgress > 0) {
-        const scale = 1 - (overlapProgress * 0.05);
-        const opacity = 1 - (overlapProgress * 0.3);
-        const blur = overlapProgress * 3;
-
-        card.style.transform = `scale(${scale})`;
-        card.style.opacity = `${opacity}`;
-        card.style.filter = `blur(${blur}px)`;
-      } else {
-        card.style.transform = `scale(1)`;
-        card.style.opacity = `1`;
-        card.style.filter = `none`;
-      }
-    }
-  });
-}
-
-// 60fps Throttled Scroll Listener
-let isTicking = false;
-window.addEventListener('scroll', () => {
-  if (!isTicking) {
-    window.requestAnimationFrame(() => {
-      updateStackPhysics();
-      isTicking = false;
-    });
-    isTicking = true;
-  }
-}, { passive: true });
+// Options: 'stack' (Scroll Stack), 'prestacked' (Vertical Deck), 'horizontal' (Horizontal Deck), 'grid' (Grid)
+let activeMode = 'stack'; // Change to 'prestacked' or 'horizontal' for pre-stacked deck by default
 ```
 
 ---
 
-## 🚀 5. Progressive Fallback Best Practice
+## ☀️ 6. Bright Light & Dark Mode Support
 
-To guarantee **100% immediate rendering** on any browser environment without waiting for client-side JS generation:
-1. Always write the initial 5 cards as static HTML inside `#cards-stack-wrapper` in `index.html`.
-2. On DOM load, `app.js` automatically binds click listeners and scroll physics to existing DOM cards.
-3. If category filters are clicked, `renderCards(filter)` dynamically updates the stack.
-
----
-
-## ⚖️ 6. Portfolio & Legal Compliance Disclaimer
-
-When building showcases featuring real-world brands or products (e.g. Credit Cards, Smartphones, Automotive):
-- Include a top notice bar: `【UNOFFICIAL CONCEPT DEMO】 This website is a UI/UX portfolio concept...`
-- Include a detailed footer disclaimer box clarifying ownership and immediate takedown policy upon request.
+Include Theme Toggle button handler in `js/app.js` with `localStorage` persistence:
+- Adds `.light` class to `<html>` and `<body>` when Bright mode is selected.
+- Automatically adjusts background colors, glass card gradients, text contrast, and modal drawers.
