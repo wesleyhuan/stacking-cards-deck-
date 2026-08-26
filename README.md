@@ -24,6 +24,33 @@ All three interactive showcase websites are deployed live on **Google Cloud App 
 
 ---
 
+## 🔀 4 Built-In View Modes & Theme Features
+
+The framework supports **4 interchangeable layout modes** and a **Bright Light / Dark Theme Switcher**:
+
+1. 📜 **Scroll Stacking Deck (`'stack'`)**: Cards stack dynamically over each other as the user scrolls down the page (sticky CSS + 60fps physics).
+2. 🎴 **Vertical Pre-Stacked Deck (`'prestacked'`)**: Cards are pre-stacked inside **1 compact vertical section** (height ~560px), popping up to the front when hovered.
+3. 🖼️ **Horizontal Pre-Stacked Deck (`'horizontal'`)**: Full-sized cards pre-stacked in a **horizontal overlapping fan deck**, popping up/out when hovered with zero clipping.
+4. 🔲 **Responsive Grid View (`'grid'`)**: Standard side-by-side grid layout without overlap.
+5. ☀️ / 🌙 **Bright Light / Dark Theme Switcher**: Sun/Moon header button toggling between high-contrast bright mode (`#f8fafc`) and dark obsidian mode, with `localStorage` persistence.
+
+---
+
+## 🤖 Interactive Custom Skill Protocol (`SKILL.md`)
+
+The repository includes a custom Antigravity skill at [`.agents/skills/stacking-cards-design/SKILL.md`](file:///C:/Users/wesle/Desktop/antigravity/web_design3/.agents/skills/stacking-cards-design/SKILL.md). 
+
+When activated, the skill **instructs the AI agent to prompt the user to choose their preferred layout style**:
+
+> **Interactive Prompt Question**:
+> *"Which 3D Stacking Card style would you like for your website layout?"*
+> 1. Scroll Stacking Deck (`stack`)
+> 2. Vertical Pre-Stacked Deck (`prestacked`)
+> 3. Horizontal Pre-Stacked Deck (`horizontal`)
+> 4. Responsive Grid View (`grid`)
+
+---
+
 ## 🎯 Best Use Cases & Why Use This Design?
 
 The **3D Stacking Cards** pattern is one of the most effective web design structures for modern product marketing and storytelling:
@@ -63,9 +90,9 @@ web_design3/
 ├── index.html                   # Cathay United Bank Credit Cards Demo Site
 ├── pixel11.html                 # Google Pixel 11 Pro Marketing Demo Site
 ├── css/
-│   └── styles.css               # Core CSS sticky math, backdrop filters, animations
+│   └── styles.css               # Core CSS sticky math, backdrop filters, animations & light theme
 ├── js/
-│   ├── app.js                   # Universal scroll physics, view mode & modal engine
+│   ├── app.js                   # Universal 4-mode engine, theme switcher & modal handler
 │   ├── cardsData.js             # Datasets for Agency, Cathay Cards & Pixel 11 Cards
 │   └── sound.js                 # WebAudio synthesis sound engine
 ├── assets/
@@ -73,7 +100,7 @@ web_design3/
 ├── .agents/
 │   └── skills/
 │       └── stacking-cards-design/
-│           └── SKILL.md         # Antigravity skill for recreating this web design
+│           └── SKILL.md         # Antigravity skill with interactive style selection protocol
 └── README.md                    # Project documentation & live GCP deployment URLs
 ```
 
@@ -104,3 +131,10 @@ To adapt this web design for your own product, SaaS, or portfolio:
 
 1. Edit [`js/cardsData.js`](file:///C:/Users/wesle/Desktop/antigravity/web_design3/js/cardsData.js) and add your product details.
 2. Duplicate `agency.html`, `index.html`, or `pixel11.html` and update the pre-rendered HTML cards in `#cards-stack-wrapper`.
+3. Set your preferred initial layout style (`'stack'`, `'prestacked'`, `'horizontal'`, or `'grid'`) in `js/app.js`.
+
+---
+
+## 📜 License & Disclaimer
+
+This framework is created for **educational, portfolio, and UI/UX demonstration purposes**. Trademarks, logos, and product names (such as Cathay United Bank and Google Pixel) belong to their respective copyright holders and are used solely for illustrative mockup purposes.
