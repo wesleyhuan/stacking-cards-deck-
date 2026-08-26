@@ -362,6 +362,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Theme Toggle Button Handler (Dark / Bright Light Mode)
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+      document.body.classList.add('light');
+      if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+      document.body.classList.remove('light');
+      if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // Load saved theme from localStorage
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  applyTheme(savedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isLight = document.documentElement.classList.contains('light');
+      const newTheme = isLight ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      applyTheme(newTheme);
+      if (window.soundEngine) window.soundEngine.playClickSound();
+    });
+  }
+
   // Reset Stack Button
   if (resetStackBtn) {
     resetStackBtn.addEventListener('click', () => {
